@@ -7,3 +7,5 @@ cd ..
 sleep 5
 source createCertificate.sh
 sleep 5
+
+source createArtifacts.sh
