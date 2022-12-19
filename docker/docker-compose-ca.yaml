@@ -8,13 +8,17 @@ services:
     container_name:
      ca.bdbank
     image: hyperledger/fabric-ca
+    labels:
+      service: hyperledger-fabric
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca.bdbank
       - FABRIC_CA_SERVER_TLS_ENABLED=true
       - FABRIC_CA_SERVER_PORT=1000
+      - FABRIC_CA_SERVER_OPERATIONS_LISTENADDRESS=0.0.0.0:11000
     ports:
       - 1000:1000
+      - 11000:11000
     volumes:
       - ../consortium/fabric-ca/bdbank:/etc/hyperledger/fabric-ca-server
     command:
@@ -25,11 +29,14 @@ services:
     container_name: 
       ca.abbank
     image: hyperledger/fabric-ca
+    labels:
+      service: hyperledger-fabric
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca.abbank
       - FABRIC_CA_SERVER_TLS_ENABLED=true
       - FABRIC_CA_SERVER_PORT=2000
+      - FABRIC_CA_SERVER_OPERATIONS_LISTENADDRESS=0.0.0.0:12000
     volumes:
       - ../consortium/fabric-ca/abbank:/etc/hyperledger/fabric-ca-server
     command: 
@@ -37,22 +44,27 @@ services:
     
     ports:
       - 2000:2000
+      - 12000:12000
     networks:
       - ibps
   IslamiBank:
     container_name:
      ca.islamibank
     image: hyperledger/fabric-ca
+    labels:
+      service: hyperledger-fabric
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca.islamibank
       - FABRIC_CA_SERVER_TLS_ENABLED=true
       - FABRIC_CA_SERVER_PORT=3000
+      - FABRIC_CA_SERVER_OPERATIONS_LISTENADDRESS=0.0.0.0:13000
 
     volumes:
       - ../consortium/fabric-ca/islamibank:/etc/hyperledger/fabric-ca-server
     ports:
-      - 3000
+      - 3000:3000
+      - 13000:13000
     command: 
       sh -c 'fabric-ca-server start -b admin:adminpw -d'
     networks:
@@ -62,15 +74,19 @@ services:
     container_name:
      ca.dbbank
     image: hyperledger/fabric-ca
+    labels:
+      service: hyperledger-fabric
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca.dbbank
       - FABRIC_CA_SERVER_TLS_ENABLED=true
       - FABRIC_CA_SERVER_PORT=4000
+      - FABRIC_CA_SERVER_OPERATIONS_LISTENADDRESS=0.0.0.0:14000
     volumes:
       - ../consortium/fabric-ca/dbbank:/etc/hyperledger/fabric-ca-server
     ports:
       - 4000:4000
+      - 14000:14000
     command: 
       sh -c 'fabric-ca-server start -b admin:adminpw -d'
     networks:
@@ -80,32 +96,41 @@ services:
     container_name:
      ca.krishibank
     image: hyperledger/fabric-ca
+    labels:
+      service: hyperledger-fabric
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca.krishibank
       - FABRIC_CA_SERVER_TLS_ENABLED=true
       - FABRIC_CA_SERVER_PORT=5000
+      - FABRIC_CA_SERVER_OPERATIONS_LISTENADDRESS=0.0.0.0:15000
     volumes:
       - ../consortium/fabric-ca/krishibank:/etc/hyperledger/fabric-ca-server
     command: 
       sh -c 'fabric-ca-server start -b admin:adminpw -d'
     ports:
       - 5000:5000
+      - 15000:15000
     networks:
       - ibps
-  orderer:
+  OrdererOrg:
     container_name:
      ca.orderer
     image: hyperledger/fabric-ca
+    labels:
+      service: hyperledger-fabric
     environment:
       - FABRI_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca.orderer
       - FABRIC_CA_SERVER_TLS_ENABLED=true
       - FABRIC_CA_SERVER_PORT=6000
+      - FABRIC_CA_SERVER_OPERATIONS_LISTENADDRESS=0.0.0.0:16000
+
     volumes:
       - ../consortium/fabric-ca/orderer:/etc/hyperledger/fabric-ca-server
     ports:
       - 6000:6000
+      - 16000:16000
     command: 
       sh -c 'fabric-ca-server start -b admin:adminpw -d'
     networks:

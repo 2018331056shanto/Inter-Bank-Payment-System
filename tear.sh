@@ -8,3 +8,5 @@ sudo rm -rf fabric-ca
 sudo rm -rf crypto-config
 cd ..
 
+sudo rm -rf channel-artifacts
+
