@@ -27,7 +27,7 @@ cd ..
 
 sleep 5
 
-source cpp-generate.sh
+source ccp-generate.sh
 
 
 
