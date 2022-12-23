@@ -1,0 +1,300 @@
+version: '2'
+
+volumes: 
+  orderer.example.com:
+  orderer2.example.com:
+  orderer3.example.com:
+  peer0.bdbank:
+  peer1.bdbank:
+  peer0.abbank:
+  peer1.abbank:
+  peer0.dbbank:
+  peer1.dbbank:
+  peer0.islamibank:
+  peer1.islamibank:
+  peer0.krishibank:
+  peer1.krishibank:
+  
+networks:
+  ibps:
+
+
+services:
+
+  orderer.example.com:
+    extends: 
+      file: base/docker-compose-base.yaml
+      service: orderer.example.com
+    container_name: orderer.example.com
+    networks: 
+      - ibps
+
+  orderer2.example.com:
+    extends: 
+      file: base/docker-compose-base.yaml
+      service: orderer2.example.com
+    container_name: orderer2.example.com
+    networks: 
+      - ibps
+
+  orderer3.example.com:
+    extends: 
+      file: base/docker-compose-base.yaml
+      service: orderer3.example.com
+    container_name: orderer3.example.com
+    networks: 
+      - ibps
+    
+  
+  couchdb1:
+    container_name: couchdb1
+    image: couchdb:3.1.1
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - 5984:5984
+    networks:
+      - ibps
+
+  peer0.bdbank:
+    extends: 
+      file: base/docker-compose-base.yaml
+      service: peer0.bdbank
+    environment:
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb1:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    depends_on:
+      - couchdb1
+    networks: 
+      - ibps
+  
+  couchdb2:
+    container_name: couchdb2
+    image: couchdb:3.1.1
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - 6984:5984
+    networks:
+      - ibps
+
+  peer1.bdbank:
+    extends: 
+      file: base/docker-compose-base.yaml
+      service: peer1.bdbank
+    environment:
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb2:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    depends_on:
+      - couchdb2
+    networks: 
+      - ibps
+  
+  couchdb3:
+    container_name: couchdb3
+    image: couchdb:3.1.1
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - 7984:5984
+    networks:
+      - ibps
+
+  peer0.abbank:
+    extends: 
+      file: base/docker-compose-base.yaml
+      service: peer0.abbank
+    environment:
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb3:7984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    depends_on:
+      - couchdb3
+    networks: 
+      - ibps
+  
+  couchdb4:
+    container_name: couchdb4
+    image: couchdb:3.1.1
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - 8984:5984
+    networks:
+      - ibps
+
+  peer1.abbank:
+    extends: 
+      file: base/docker-compose-base.yaml
+      service: peer1.abbank
+    environment:
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb4:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    depends_on:
+      - couchdb4
+    networks: 
+      - ibps
+  
+  couchdb5:
+    container_name: couchdb5
+    image: couchdb:3.1.1
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - 9984:5984
+    networks:
+      - ibps
+
+  peer0.dbbank:
+    extends: 
+      file: base/docker-compose-base.yaml
+      service: peer0.dbbank
+    environment:
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb5:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    depends_on:
+      - couchdb5
+    networks: 
+      - ibps
+  
+  couchdb6:
+    container_name: couchdb6
+    image: couchdb:3.1.1
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - 10984:5984
+    networks:
+      - ibps
+
+  peer1.dbbank:
+    extends: 
+      file: base/docker-compose-base.yaml
+      service: peer1.dbbank
+    environment:
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb6:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    depends_on:
+      - couchdb6
+    networks: 
+      - ibps
+  
+  couchdb7:
+    container_name: couchdb7
+    image: couchdb:3.1.1
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - 11984:5984
+    networks:
+      - ibps
+
+  peer0.islamibank:
+    extends: 
+      file: base/docker-compose-base.yaml
+      service: peer0.islamibank
+    environment:
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb7:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    depends_on:
+      - couchdb7
+    networks: 
+      - ibps
+  
+  couchdb8:
+    container_name: couchdb8
+    image: couchdb:3.1.1
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - 12984:5984
+    networks:
+      - ibps
+
+  peer1.islamibank:
+    extends: 
+      file: base/docker-compose-base.yaml
+      service: peer1.islamibank
+    environment:
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb8:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    depends_on:
+      - couchdb8
+    networks: 
+      - ibps
+  
+  couchdb9:
+    container_name: couchdb9
+    image: couchdb:3.1.1
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - 13984:5984
+    networks:
+      - ibps
+
+  peer0.krishibank:
+    extends: 
+      file: base/docker-compose-base.yaml
+      service: peer0.krishibank
+    environment:
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb9:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    depends_on:
+      - couchdb9
+    networks: 
+      - ibps
+  
+  couchdb10:
+    container_name: couchdb10
+    image: couchdb:3.1.1
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - 14984:5984
+    networks:
+      - ibps
+
+  peer1.krishibank:
+    extends: 
+      file: base/docker-compose-base.yaml
+      service: peer1.krishibank
+    environment:
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb10:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    depends_on:
+      - couchdb10
+    networks: 
+      - ibps
+  
+
+  

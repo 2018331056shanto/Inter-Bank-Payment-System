@@ -9,8 +9,8 @@ services:
       service: orderer-base
     volumes:
       - ../../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
-      - ../../organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/:/var/hyperledger/orderer/msp
-      - ../../organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/:/var/hyperledger/orderer/tls
+      - ../../consortium/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp/:/var/hyperledger/orderer/msp
+      - ../../consortium/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/:/var/hyperledger/orderer/tls
       - orderer.example.com:/var/hyperledger/production/orderer
     ports:
       - 7050:7050
@@ -19,28 +19,252 @@ services:
     environment: 
       - ORDERER_GENERAL_LISTENPORT=8050
     extends: 
-      file: peer-base.yaml
+      file: ./peer-base.yaml
       service: orderer-base
     volumes: 
       - ../../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
-      - ../../organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/msp/:/var/hyperledger/orderer/msp
-      - ../../organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/:/var/hyperledger/orderer/tls
+      - ../../consortium/crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/msp/:/var/hyperledger/orderer/msp
+      - ../../consortium/crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/:/var/hyperledger/orderer/tls
       - orderer2.example.com:/var/hyperledger/production/orderer
+      
     ports:
       - 8050:8050
       - 8444:8443
+
 
   orderer3.example.com:
     environment: 
       - ORDERER_GENERAL_LISTENPORT=9050
     extends: 
-      file: peer-base.yaml
+      file: ./peer-base.yaml
       service: orderer-base
     volumes: 
       - ../../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
-      - ../../organizations/ordererOrganizations/example.com/orderers/orderer3.example.com/msp/:/var/hyperledger/orderer/msp
-      - ../../organizations/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/:/var/hyperledger/orderer/tls
-      - orderer3.example.com:/var/hyperledger/production/orderer
+      - ../../consortium/crypto-config/ordererOrganizations/example.com/orderers/orderer3.example.com/msp/:/var/hyperledger/orderer/msp
+      - ../../consortium/crypto-config/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/:/var/hyperledger/orderer/tls
+      - orderer3.example.com:/var/hyperledger/production/orderer      
     ports:
       - 9050:9050
       - 8445:8443
+
+
+  peer0.bdbank:
+    container_name: peer0.bdbank
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.bdbank
+      - CORE_PEER_ADDRESS=peer0.bdbank:1050
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:1050
+      - CORE_PEER_CHAINCODEADDRESS=peer0.bdbank:1051
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:1051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.bdbank:1055
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.bdbank:1050
+      - CORE_PEER_LOCALMSPID=bdbankMSP
+    volumes: 
+      - /var/run/:/host/var/run/
+      - ../../consortium/crypto-config/peerOrganizations/bdbank/peers/peer0.bdbank/msp:/etc/hyperledger/fabric/msp
+      - ../../consortium/crypto-config/peerOrganizations/bdbank/peers/peer0.bdbank/tls:/etc/hyperledger/fabric/tls
+      - peer0.bdbank:/var/hyperledger/production
+    ports:
+      - 1050:1050
+
+  peer1.bdbank:
+    container_name: peer1.bdbank
+    extends:
+      file: ./peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.bdbank
+      - CORE_PEER_ADDRESS=peer1.bdbank:1055
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:1055
+      - CORE_PEER_CHAINCODEADDRESS=peer1.bdbank:1056
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:1056
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.bdbank:1050
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.bdbank:1055
+      - CORE_PEER_LOCALMSPID=bdbankMSP
+    volumes: 
+      - /var/run/:/host/var/run/
+      - ../../consortium/crypto-config/peerOrganizations/bdbank/peers/peer1.bdbank/msp:/etc/hyperledger/fabric/msp
+      - ../../consortium/crypto-config/peerOrganizations/bdbank/peers/peer1.bdbank/tls:/etc/hyperledger/fabric/tls
+      - peer1.bdbank:/var/hyperledger/production
+    ports:
+      - 1055:1055
+
+  
+  peer0.abbank:
+    container_name: peer0.abbank
+    extends:
+      file: ./peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.abbank
+      - CORE_PEER_ADDRESS=peer0.abbank:2050
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:2050
+      - CORE_PEER_CHAINCODEADDRESS=peer0.abbank:2051
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:2051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.abbank:2055
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.abbank:2050
+      - CORE_PEER_LOCALMSPID=abbankMSP
+    volumes: 
+      - /var/run/:/host/var/run/
+      - ../../consortium/crypto-config/peerOrganizations/abbank/peers/peer0.abbank/msp:/etc/hyperledger/fabric/msp
+      - ../../consortium/crypto-config/peerOrganizations/abbank/peers/peer0.abbank/tls:/etc/hyperledger/fabric/tls
+      - peer0.abbank:/var/hyperledger/production
+    ports:
+      - 2050:2050
+
+  peer1.abbank:
+    container_name: peer1.abbank
+    extends:
+      file: ./peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.abbank
+      - CORE_PEER_ADDRESS=peer1.abbank:2055
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:2055
+      - CORE_PEER_CHAINCODEADDRESS=peer1.abbank:2056
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:2056
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.abbank:2050
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.abbank:2055
+      - CORE_PEER_LOCALMSPID=abbankMSP
+    volumes: 
+      - /var/run/:/host/var/run/
+      - ../../consortium/crypto-config/peerOrganizations/abbank/peers/peer1.abbank/msp:/etc/hyperledger/fabric/msp
+      - ../../consortium/crypto-config/peerOrganizations/abbank/peers/peer1.abbank/tls:/etc/hyperledger/fabric/tls
+      - peer1.abbank:/var/hyperledger/production
+    ports:
+      - 2055:2055
+  
+  peer0.dbbank:
+    container_name: peer0.dbbank
+    extends:
+      file: ./peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.dbbank
+      - CORE_PEER_ADDRESS=peer0.dbbank:4050
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:4050
+      - CORE_PEER_CHAINCODEADDRESS=peer0.dbbank:4051
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:4051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.dbbank:4055
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.dbbank:4050
+      - CORE_PEER_LOCALMSPID=dbbankMSP
+    volumes: 
+      - /var/run/:/host/var/run/
+      - ../../consortium/crypto-config/peerOrganizations/dbbank/peers/peer0.dbbank/msp:/etc/hyperledger/fabric/msp
+      - ../../consortium/crypto-config/peerOrganizations/dbbank/peers/peer0.dbbank/tls:/etc/hyperledger/fabric/tls
+      - peer0.dbbank:/var/hyperledger/production
+    ports:
+      - 4050:4050
+
+  peer1.dbbank:
+    container_name: peer1.dbbank
+    extends:
+      file: ./peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.dbbank
+      - CORE_PEER_ADDRESS=peer1.dbbank:4055
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:4055
+      - CORE_PEER_CHAINCODEADDRESS=peer1.dbbank:4056
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:4056
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.dbbank:4050
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.dbbank:4055
+      - CORE_PEER_LOCALMSPID=dbbankMSP
+    volumes: 
+      - /var/run/:/host/var/run/
+      - ../../consortium/crypto-config/peerOrganizations/dbbank/peers/peer1.dbbank/msp:/etc/hyperledger/fabric/msp
+      - ../../consortium/crypto-config/peerOrganizations/dbbank/peers/peer1.dbbank/tls:/etc/hyperledger/fabric/tls
+      - peer1.dbbank:/var/hyperledger/production
+    ports:
+      - 4055:4055
+
+  peer0.islamibank:
+    container_name: peer0.islamibank
+    extends:
+      file: ./peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.islamibank
+      - CORE_PEER_ADDRESS=peer0.islamibank:3050
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:3050
+      - CORE_PEER_CHAINCODEADDRESS=peer0.islamibank:3051
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:3051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.islamibank:3055
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.islamibank:3050
+      - CORE_PEER_LOCALMSPID=islamibankMSP
+    volumes: 
+      - /var/run/:/host/var/run/
+      - ../../consortium/crypto-config/peerOrganizations/islamibank/peers/peer0.islamibank/msp:/etc/hyperledger/fabric/msp
+      - ../../consortium/crypto-config/peerOrganizations/islamibank/peers/peer0.islamibank/tls:/etc/hyperledger/fabric/tls
+      - peer0.islamibank:/var/hyperledger/production
+    ports:
+      - 3050:3050
+
+  peer1.islamibank:
+    container_name: peer1.islamibank
+    extends:
+      file: ./peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.islamibank
+      - CORE_PEER_ADDRESS=peer1.islamibank:3055
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:3055
+      - CORE_PEER_CHAINCODEADDRESS=peer1.islamibank:3056
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:3056
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.islamibank:3050
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.islamibank:3055
+      - CORE_PEER_LOCALMSPID=islamibankMSP
+    volumes: 
+      - /var/run/:/host/var/run/
+      - ../../consortium/crypto-config/peerOrganizations/islamibank/peers/peer1.islamibank/msp:/etc/hyperledger/fabric/msp
+      - ../../consortium/crypto-config/peerOrganizations/islamibank/peers/peer1.islamibank/tls:/etc/hyperledger/fabric/tls
+      - peer1.islamibank:/var/hyperledger/production
+    ports:
+      - 3055:3055
+  
+  peer0.krishibank:
+    container_name: peer0.krishibank
+    extends:
+      file: ./peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.krishibank
+      - CORE_PEER_ADDRESS=peer0.krishibank:5050
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:5050
+      - CORE_PEER_CHAINCODEADDRESS=peer0.krishibank:5051
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:5051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.krishibank:5055
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.krishibank:5050
+      - CORE_PEER_LOCALMSPID=krishibankMSP
+    volumes: 
+      - /var/run/:/host/var/run/
+      - ../../consortium/crypto-config/peerOrganizations/krishibank/peers/peer0.krishibank/msp:/etc/hyperledger/fabric/msp
+      - ../../consortium/crypto-config/peerOrganizations/krishibank/peers/peer0.krishibank/tls:/etc/hyperledger/fabric/tls
+      - peer0.krishibank:/var/hyperledger/production
+    ports:
+      - 5050:5050
+
+  peer1.krishibank:
+    container_name: peer1.krishibank
+    extends:
+      file: ./peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.krishibank
+      - CORE_PEER_ADDRESS=peer1.krishibank:5055
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:5055
+      - CORE_PEER_CHAINCODEADDRESS=peer1.krishibank:5056
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:5056
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.krishibank:5050
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.krishibank:5055
+      - CORE_PEER_LOCALMSPID=krishibankMSP
+    volumes: 
+      - /var/run/:/host/var/run/
+      - ../../consortium/crypto-config/peerOrganizations/krishibank/peers/peer1.krishibank/msp:/etc/hyperledger/fabric/msp
+      - ../../consortium/crypto-config/peerOrganizations/krishibank/peers/peer1.krishibank/tls:/etc/hyperledger/fabric/tls
+      - peer1.krishibank:/var/hyperledger/production
+    ports:
+      - 5055:5055

@@ -45,6 +45,7 @@ Organizations:
     AnchorPeers:
       - Host: peer0.bdbank
         Port: 1050
+      
   
 
   - &ABBank
@@ -69,6 +70,8 @@ Organizations:
     AnchorPeers:
       - Host: peer0.abbank
         Port: 2050
+      
+      
 
   - &IslamiBank
 
@@ -92,6 +95,7 @@ Organizations:
     AnchorPeers:
       - Host: peer0.islamibank
         Port: 3050
+      
 
   - &DBBank
 
@@ -116,6 +120,8 @@ Organizations:
     AnchorPeers:
       - Host: peer0.dbbank
         Port: 4050
+      
+
 
   - &KrishiBank
 
@@ -140,6 +146,7 @@ Organizations:
     AnchorPeers:
       - Host: peer0.krishibank
         Port: 5050
+      
   
 
 Capabilities:
