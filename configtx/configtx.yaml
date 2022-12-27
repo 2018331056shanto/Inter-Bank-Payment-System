@@ -32,16 +32,16 @@ Organizations:
     Policies:
       Readers:
         Type: Signature
-        Rule: "OR('Org1MSP.admin', 'Org1MSP.peer', 'Org1MSP.client')"
+        Rule: "OR('bdbankMSP.admin', 'bdbankMSP.peer', 'bdbankMSP.client')"
       Writers:
         Type: Signature
-        Rule: "OR('Org1MSP.admin', 'Org1MSP.client')"
+        Rule: "OR('bdbankMSP.admin', 'bdbankMSP.client')"
       Admins:
         Type: Signature
-        Rule: "OR('Org1MSP.admin')"
+        Rule: "OR('bdbankMSP.admin')"
       Endorsement:
         Type: Signature
-        Rule: "OR('Org1MSP.peer')"
+        Rule: "OR('bdbankMSP.peer')"
     AnchorPeers:
       - Host: peer0.bdbank
         Port: 1050
@@ -57,16 +57,16 @@ Organizations:
     Policies:
       Readers:
         Type: Signature
-        Rule: "OR('Org1MSP.admin', 'Org1MSP.peer', 'Org1MSP.client')"
+        Rule: "OR('abbankMSP.admin', 'abbankMSP.peer', 'abbankMSP.client')"
       Writers:
         Type: Signature
-        Rule: "OR('Org1MSP.admin', 'Org1MSP.client')"
+        Rule: "OR('abbankMSP.admin', 'abbankMSP.client')"
       Admins:
         Type: Signature
-        Rule: "OR('Org1MSP.admin')"
+        Rule: "OR('abbankMSP.admin')"
       Endorsement:
         Type: Signature
-        Rule: "OR('Org1MSP.peer')"
+        Rule: "OR('abbankMSP.peer')"
     AnchorPeers:
       - Host: peer0.abbank
         Port: 2050
@@ -82,16 +82,16 @@ Organizations:
     Policies:
       Readers:
         Type: Signature
-        Rule: "OR('Org1MSP.admin', 'Org1MSP.peer', 'Org1MSP.client')"
+        Rule: "OR('islamibankMSP.admin', 'islamibankMSP.peer', 'islamibankMSP.client')"
       Writers:
         Type: Signature
-        Rule: "OR('Org1MSP.admin', 'Org1MSP.client')"
+        Rule: "OR('islamibankMSP.admin', 'islamibankMSP.client')"
       Admins:
         Type: Signature
-        Rule: "OR('Org1MSP.admin')"
+        Rule: "OR('islamibankMSP.admin')"
       Endorsement:
         Type: Signature
-        Rule: "OR('Org1MSP.peer')"
+        Rule: "OR('islamibankMSP.peer')"
     AnchorPeers:
       - Host: peer0.islamibank
         Port: 3050
@@ -107,16 +107,16 @@ Organizations:
     Policies:
       Readers:
         Type: Signature
-        Rule: "OR('Org1MSP.admin', 'Org1MSP.peer', 'Org1MSP.client')"
+        Rule: "OR('dbbankMSP.admin', 'dbbankMSP.peer', 'dbbankMSP.client')"
       Writers:
         Type: Signature
-        Rule: "OR('Org1MSP.admin', 'Org1MSP.client')"
+        Rule: "OR('dbbankMSP.admin', 'dbbankMSP.client')"
       Admins:
         Type: Signature
-        Rule: "OR('Org1MSP.admin')"
+        Rule: "OR('dbbankMSP.admin')"
       Endorsement:
         Type: Signature
-        Rule: "OR('Org1MSP.peer')"
+        Rule: "OR('dbbankMSP.peer')"
     AnchorPeers:
       - Host: peer0.dbbank
         Port: 4050
@@ -133,16 +133,16 @@ Organizations:
     Policies:
       Readers:
         Type: Signature
-        Rule: "OR('Org1MSP.admin', 'Org1MSP.peer', 'Org1MSP.client')"
+        Rule: "OR('krishibankMSP.admin', 'krishibankMSP.peer', 'krishibankMSP.client')"
       Writers:
         Type: Signature
-        Rule: "OR('Org1MSP.admin', 'Org1MSP.client')"
+        Rule: "OR('krishibankMSP.admin', 'krishibankMSP.client')"
       Admins:
           Type: Signature
-          Rule: "OR('Org1MSP.admin')"
+          Rule: "OR('krishibankMSP.admin')"
       Endorsement:
         Type: Signature
-        Rule: "OR('Org1MSP.peer')"
+        Rule: "OR('krishibankMSP.peer')"
     AnchorPeers:
       - Host: peer0.krishibank
         Port: 5050

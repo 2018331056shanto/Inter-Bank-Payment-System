@@ -26,8 +26,16 @@ echo " "
 cd ..
 
 sleep 5
-
+echo "========================Generating Common Connection Profile ========================"
+echo" "
 source ccp-generate.sh
+
+echo "=======================CPP generation Successfull================================="
+sleep 5
+echo "=====================Creating Channel======================================================"
+source createChannel.sh
+echo "==============================Channel Generation Successfull======================================"
+sleep 5
 
 
 

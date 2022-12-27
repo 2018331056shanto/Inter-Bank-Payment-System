@@ -2,32 +2,32 @@ export PATH=${PWD}/bin:$PATH
 export FABRIC_CFG_PATH=${PWD}/configtx/
 
 export CHANNEL_ONE_PROFILE=NettingChannel
-export CHANNEL_ONE_NAME=nettingChannel
+export CHANNEL_ONE_NAME=netting-channel
 
 
 export CHANNEL_TWO_PROFILE=FundingChannel
-export CHANNEL_TWO_NAME=fundingChannel
+export CHANNEL_TWO_NAME=funding-channel
 
 
 export CHANNEL_THREE_PROFILE=IslamibankABbankChannel
-export CHANNEL_THREE_NAME=islamibankABbankChannel
+export CHANNEL_THREE_NAME=islamibank-abbank-channel
 
 
 
-export CHANNEL_FOUR_PROFILE= IslamibankDBbankChannel
-export CHANNEL_FOUR_NAME=  islamibankDBbankChannel
+export CHANNEL_FOUR_PROFILE=IslamibankDBbankChannel
+export CHANNEL_FOUR_NAME=islamibank-dbbank-channel
 
 export CHANNEL_FIVE_PROFILE=IslamibankKrishibankChannel
-export CHANNEL_FIVE_NAME=islamibankKrishibankChannel
+export CHANNEL_FIVE_NAME=islamibank-krishibank-channel
 
 export CHANNEL_SIX_PROFILE=ABbankDBbank
-export CHANNEL_SIX_NAME=aBbankDBbank
+export CHANNEL_SIX_NAME=abbank-dbbank-channel
 
 export CHANNEL_SEVEN_PROFILE=ABbankKrishibank
-export CHANNEL_SEVEN_NAME=aBbankKrishibank
+export CHANNEL_SEVEN_NAME=abbank-krishibank-channel
 
 export CHANNEL_EIGHT_PROFILE=DBbankKrishibank
-export CHANNEL_EIGHT_NAME=dBbankKrishibank
+export CHANNEL_EIGHT_NAME=dbbank-krishibank-channel
 
 
 
