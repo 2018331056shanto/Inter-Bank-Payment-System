@@ -16,7 +16,7 @@ echo "================Generating Channel Artifacts ================="
 source createArtifacts.sh
 echo "================Channel Artifacts Generation Completed ================="
 sleep 5
-eco " "
+echo " "
 cd docker
 echo "===============Bringing up the Network containrs ================"
 docker-compose -f docker-compose-net.yaml up -d --remove-orphans
@@ -27,7 +27,7 @@ cd ..
 
 sleep 5
 echo "========================Generating Common Connection Profile ========================"
-echo" "
+echo " "
 source ccp-generate.sh
 
 echo "=======================CPP generation Successfull================================="
