@@ -18,7 +18,7 @@ services:
       - FABRIC_CA_SERVER_OPERATIONS_LISTENADDRESS=0.0.0.0:11000
     ports:
       - 1000:1000
-      - 11000:11000
+     
     volumes:
       - ../consortium/fabric-ca/bdbank:/etc/hyperledger/fabric-ca-server
     command:
@@ -44,7 +44,7 @@ services:
     
     ports:
       - 2000:2000
-      - 12000:12000
+    
     networks:
       - ibps
   IslamiBank:
@@ -64,7 +64,7 @@ services:
       - ../consortium/fabric-ca/islamibank:/etc/hyperledger/fabric-ca-server
     ports:
       - 3000:3000
-      - 13000:13000
+     
     command: 
       sh -c 'fabric-ca-server start -b admin:adminpw -d'
     networks:
@@ -86,7 +86,7 @@ services:
       - ../consortium/fabric-ca/dbbank:/etc/hyperledger/fabric-ca-server
     ports:
       - 4000:4000
-      - 14000:14000
+     
     command: 
       sh -c 'fabric-ca-server start -b admin:adminpw -d'
     networks:
@@ -110,7 +110,7 @@ services:
       sh -c 'fabric-ca-server start -b admin:adminpw -d'
     ports:
       - 5000:5000
-      - 15000:15000
+      
     networks:
       - ibps
   OrdererOrg:
@@ -130,7 +130,7 @@ services:
       - ../consortium/fabric-ca/orderer:/etc/hyperledger/fabric-ca-server
     ports:
       - 6000:6000
-      - 16000:16000
+      
     command: 
       sh -c 'fabric-ca-server start -b admin:adminpw -d'
     networks:

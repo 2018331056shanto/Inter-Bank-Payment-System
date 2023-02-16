@@ -1,0 +1,2 @@
+Installed chaincodes on peer:
+Package ID: netting:d52946dc14858b71ecc479ab1901ac7f0ae0244a8318c54896e2a747366a7553, Label: netting

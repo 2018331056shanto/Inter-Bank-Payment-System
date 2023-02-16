@@ -65,7 +65,7 @@ certificateForBdbank(){
 
     
 
-    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:1000 --caname ca.bdbank -M ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/peers/peer0.bdbank/msp --csr.hosts peer0.bdbank --tls.certfiles ${PWD}/consortium/fabric-ca/bdbank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:1000 --caname ca.bdbank -M ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/peers/peer0.bdbank/msp --csr.hosts peer0.bdbank --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/bdbank/tls-cert.pem
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/peers/peer0.bdbank/msp/config.yaml
 
@@ -73,7 +73,7 @@ certificateForBdbank(){
     echo "Generate peer0 tls certificate"
     echo 
 
-    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:1000 --caname ca.bdbank -M ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/peers/peer0.bdbank/tls --enrollment.profile tls --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/bdbank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:1000 --caname ca.bdbank -M ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/peers/peer0.bdbank/tls --enrollment.profile tls --csr.hosts localhost --csr.hosts peer0.bdbank --tls.certfiles ${PWD}/consortium/fabric-ca/bdbank/tls-cert.pem
     cp ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/peers/peer0.bdbank/tls/tlscacerts/*  ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/peers/peer0.bdbank/tls/ca.crt
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/peers/peer0.bdbank/tls/signcerts/*  ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/peers/peer0.bdbank/tls/server.crt
@@ -106,7 +106,7 @@ echo
     echo "Generate the peer1 msp"
     echo 
 
-    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:1000 --caname ca.bdbank -M ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/peers/peer1.bdbank/msp --csr.hosts peer1.bdbank --tls.certfiles ${PWD}/consortium/fabric-ca/bdbank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:1000 --caname ca.bdbank -M ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/peers/peer1.bdbank/msp --csr.hosts peer1.bdbank --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/bdbank/tls-cert.pem
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/peers/peer1.bdbank/msp/config.yaml
 
@@ -114,7 +114,7 @@ echo
     echo "Generate peer1 tls certificate"
     echo 
 
-    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:1000 --caname ca.bdbank -M ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/peers/peer1.bdbank/tls --enrollment.profile tls --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/bdbank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:1000 --caname ca.bdbank -M ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/peers/peer1.bdbank/tls --enrollment.profile tls --csr.hosts peer1.bdbank --csr.hosts localhost  --tls.certfiles ${PWD}/consortium/fabric-ca/bdbank/tls-cert.pem
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/peers/peer1.bdbank/tls/tlscacerts/*  ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/peers/peer1.bdbank/tls/ca.crt
 
@@ -131,7 +131,7 @@ echo
      mkdir -p consortium/crypto-config/peerOrganizations/bdbank/users/User1
 
 
-    fabric-ca-client enroll -u https://user1:user1pw@localhost:1000 --caname ca.bdbank -M ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/users/User1/msp --csr.hosts user1.bdbank --tls.certfiles ${PWD}/consortium/fabric-ca/bdbank/tls-cert.pem
+    fabric-ca-client enroll -u https://user1:user1pw@localhost:1000 --caname ca.bdbank -M ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/users/User1/msp   --tls.certfiles ${PWD}/consortium/fabric-ca/bdbank/tls-cert.pem
     
     cp ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/users/User1/msp/config.yaml
 
@@ -141,7 +141,7 @@ echo
     echo "Generate the org admin msp"
     echo 
 
-    fabric-ca-client enroll -u https://bdbankadmin:bdbankadminkpw@localhost:1000 --caname ca.bdbank  -M ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/users/Admin@bdbank/msp --csr.hosts bdbankadmin.bdbank  --tls.certfiles ${PWD}/consortium/fabric-ca/bdbank/tls-cert.pem
+    fabric-ca-client enroll -u https://bdbankadmin:bdbankadminkpw@localhost:1000 --caname ca.bdbank  -M ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/users/Admin@bdbank/msp  --tls.certfiles ${PWD}/consortium/fabric-ca/bdbank/tls-cert.pem
     
     cp ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/bdbank/users/Admin@bdbank/msp/config.yaml
 
@@ -211,7 +211,7 @@ certificateForABbank(){
 
     
 
-    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:2000 --caname ca.abbank -M ${PWD}/consortium/crypto-config/peerOrganizations/abbank/peers/peer0.abbank/msp --csr.hosts peer0.abbank --tls.certfiles ${PWD}/consortium/fabric-ca/abbank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:2000 --caname ca.abbank -M ${PWD}/consortium/crypto-config/peerOrganizations/abbank/peers/peer0.abbank/msp --csr.hosts peer0.abbank --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/abbank/tls-cert.pem
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/abbank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/abbank/peers/peer0.abbank/msp/config.yaml
 
@@ -219,7 +219,7 @@ certificateForABbank(){
     echo "Generate peer0 tls certificate"
     echo 
 
-    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:2000 --caname ca.abbank -M ${PWD}/consortium/crypto-config/peerOrganizations/abbank/peers/peer0.abbank/tls --enrollment.profile tls --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/abbank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:2000 --caname ca.abbank -M ${PWD}/consortium/crypto-config/peerOrganizations/abbank/peers/peer0.abbank/tls --enrollment.profile tls --csr.hosts peer0.abbank --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/abbank/tls-cert.pem
     cp ${PWD}/consortium/crypto-config/peerOrganizations/abbank/peers/peer0.abbank/tls/tlscacerts/*  ${PWD}/consortium/crypto-config/peerOrganizations/abbank/peers/peer0.abbank/tls/ca.crt
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/abbank/peers/peer0.abbank/tls/signcerts/*  ${PWD}/consortium/crypto-config/peerOrganizations/abbank/peers/peer0.abbank/tls/server.crt
@@ -252,7 +252,7 @@ echo
     echo "Generate the peer1 msp"
     echo 
 
-    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:2000 --caname ca.abbank -M ${PWD}/consortium/crypto-config/peerOrganizations/abbank/peers/peer1.abbank/msp --csr.hosts peer1.abbank --tls.certfiles ${PWD}/consortium/fabric-ca/abbank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:2000 --caname ca.abbank -M ${PWD}/consortium/crypto-config/peerOrganizations/abbank/peers/peer1.abbank/msp --csr.hosts peer1.abbank --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/abbank/tls-cert.pem
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/abbank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/abbank/peers/peer1.abbank/msp/config.yaml
 
@@ -260,7 +260,7 @@ echo
     echo "Generate peer1 tls certificate"
     echo 
 
-    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:2000 --caname ca.abbank -M ${PWD}/consortium/crypto-config/peerOrganizations/abbank/peers/peer1.abbank/tls --enrollment.profile tls --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/abbank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:2000 --caname ca.abbank -M ${PWD}/consortium/crypto-config/peerOrganizations/abbank/peers/peer1.abbank/tls --enrollment.profile tls --csr.hosts peer1.abbank --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/abbank/tls-cert.pem
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/abbank/peers/peer1.abbank/tls/tlscacerts/*  ${PWD}/consortium/crypto-config/peerOrganizations/abbank/peers/peer1.abbank/tls/ca.crt
 
@@ -277,7 +277,7 @@ echo
      mkdir -p consortium/crypto-config/peerOrganizations/abbank/users/User1
 
 
-    fabric-ca-client enroll -u https://user1:user1pw@localhost:2000 --caname ca.abbank -M ${PWD}/consortium/crypto-config/peerOrganizations/abbank/users/User1/msp --csr.hosts user1.abbank --tls.certfiles ${PWD}/consortium/fabric-ca/abbank/tls-cert.pem
+    fabric-ca-client enroll -u https://user1:user1pw@localhost:2000 --caname ca.abbank -M ${PWD}/consortium/crypto-config/peerOrganizations/abbank/users/User1/msp --tls.certfiles ${PWD}/consortium/fabric-ca/abbank/tls-cert.pem
     
     cp ${PWD}/consortium/crypto-config/peerOrganizations/abbank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/abbank/users/User1/msp/config.yaml
 
@@ -287,7 +287,7 @@ echo
     echo "Generate the org admin msp"
     echo 
 
-    fabric-ca-client enroll -u https://abbankadmin:abbankadminkpw@localhost:2000 --caname ca.abbank  -M ${PWD}/consortium/crypto-config/peerOrganizations/abbank/users/Admin@abbank/msp --csr.hosts abbankadmin.abbank  --tls.certfiles ${PWD}/consortium/fabric-ca/abbank/tls-cert.pem
+    fabric-ca-client enroll -u https://abbankadmin:abbankadminkpw@localhost:2000 --caname ca.abbank  -M ${PWD}/consortium/crypto-config/peerOrganizations/abbank/users/Admin@abbank/msp  --tls.certfiles ${PWD}/consortium/fabric-ca/abbank/tls-cert.pem
     
     cp ${PWD}/consortium/crypto-config/peerOrganizations/abbank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/abbank/users/Admin@abbank/msp/config.yaml
 
@@ -360,7 +360,7 @@ certificateForDBbank(){
 
     
 
-    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:4000 --caname ca.dbbank -M ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/peers/peer0.dbbank/msp --csr.hosts peer0.dbbank --tls.certfiles ${PWD}/consortium/fabric-ca/dbbank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:4000 --caname ca.dbbank -M ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/peers/peer0.dbbank/msp --csr.hosts peer0.dbbank --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/dbbank/tls-cert.pem
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/peers/peer0.dbbank/msp/config.yaml
 
@@ -368,7 +368,7 @@ certificateForDBbank(){
     echo "Generate peer0 tls certificate"
     echo 
 
-    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:4000 --caname ca.dbbank -M ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/peers/peer0.dbbank/tls --enrollment.profile tls --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/dbbank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:4000 --caname ca.dbbank -M ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/peers/peer0.dbbank/tls --enrollment.profile tls --csr.hosts peer0.dbbank --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/dbbank/tls-cert.pem
     cp ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/peers/peer0.dbbank/tls/tlscacerts/*  ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/peers/peer0.dbbank/tls/ca.crt
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/peers/peer0.dbbank/tls/signcerts/*  ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/peers/peer0.dbbank/tls/server.crt
@@ -401,7 +401,7 @@ echo
     echo "Generate the peer1 msp"
     echo 
 
-    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:4000 --caname ca.dbbank -M ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/peers/peer1.dbbank/msp --csr.hosts peer1.dbbank --tls.certfiles ${PWD}/consortium/fabric-ca/dbbank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:4000 --caname ca.dbbank -M ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/peers/peer1.dbbank/msp --csr.hosts peer1.dbbank --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/dbbank/tls-cert.pem
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/peers/peer1.dbbank/msp/config.yaml
 
@@ -409,7 +409,7 @@ echo
     echo "Generate peer1 tls certificate"
     echo 
 
-    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:4000 --caname ca.dbbank -M ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/peers/peer1.dbbank/tls --enrollment.profile tls --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/dbbank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:4000 --caname ca.dbbank -M ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/peers/peer1.dbbank/tls --enrollment.profile tls --csr.hosts peer1.dbbank --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/dbbank/tls-cert.pem
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/peers/peer1.dbbank/tls/tlscacerts/*  ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/peers/peer1.dbbank/tls/ca.crt
 
@@ -426,7 +426,7 @@ echo
      mkdir -p consortium/crypto-config/peerOrganizations/dbbank/users/User1
 
 
-    fabric-ca-client enroll -u https://user1:user1pw@localhost:4000 --caname ca.dbbank -M ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/users/User1/msp --csr.hosts user1.dbbank --tls.certfiles ${PWD}/consortium/fabric-ca/dbbank/tls-cert.pem
+    fabric-ca-client enroll -u https://user1:user1pw@localhost:4000 --caname ca.dbbank -M ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/users/User1/msp  --tls.certfiles ${PWD}/consortium/fabric-ca/dbbank/tls-cert.pem
     
     cp ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/users/User1/msp/config.yaml
 
@@ -436,7 +436,7 @@ echo
     echo "Generate the org admin msp"
     echo 
 
-    fabric-ca-client enroll -u https://dbbankadmin:dbbankadminkpw@localhost:4000 --caname ca.dbbank  -M ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/users/Admin@dbbank/msp --csr.hosts dbbankadmin.dbbank  --tls.certfiles ${PWD}/consortium/fabric-ca/dbbank/tls-cert.pem
+    fabric-ca-client enroll -u https://dbbankadmin:dbbankadminkpw@localhost:4000 --caname ca.dbbank  -M ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/users/Admin@dbbank/msp   --tls.certfiles ${PWD}/consortium/fabric-ca/dbbank/tls-cert.pem
     
     cp ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/dbbank/users/Admin@dbbank/msp/config.yaml
 
@@ -506,7 +506,7 @@ certificateForIslamiBank(){
 
     
 
-    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:3000 --caname ca.islamibank -M ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/peers/peer0.islamibank/msp --csr.hosts peer0.islamibank --tls.certfiles ${PWD}/consortium/fabric-ca/islamibank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:3000 --caname ca.islamibank -M ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/peers/peer0.islamibank/msp --csr.hosts peer0.islamibank --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/islamibank/tls-cert.pem
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/peers/peer0.islamibank/msp/config.yaml
 
@@ -514,7 +514,7 @@ certificateForIslamiBank(){
     echo "Generate peer0 tls certificate"
     echo 
 
-    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:3000 --caname ca.islamibank -M ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/peers/peer0.islamibank/tls --enrollment.profile tls --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/islamibank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:3000 --caname ca.islamibank -M ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/peers/peer0.islamibank/tls --enrollment.profile tls --csr.hosts peer0.islamibank --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/islamibank/tls-cert.pem
     cp ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/peers/peer0.islamibank/tls/tlscacerts/*  ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/peers/peer0.islamibank/tls/ca.crt
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/peers/peer0.islamibank/tls/signcerts/*  ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/peers/peer0.islamibank/tls/server.crt
@@ -547,7 +547,7 @@ echo
     echo "Generate the peer1 msp"
     echo 
 
-    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:3000 --caname ca.islamibank -M ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/peers/peer1.islamibank/msp --csr.hosts peer1.islamibank --tls.certfiles ${PWD}/consortium/fabric-ca/islamibank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:3000 --caname ca.islamibank -M ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/peers/peer1.islamibank/msp --csr.hosts peer1.islamibank --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/islamibank/tls-cert.pem
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/peers/peer1.islamibank/msp/config.yaml
 
@@ -555,7 +555,7 @@ echo
     echo "Generate peer1 tls certificate"
     echo 
 
-    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:3000 --caname ca.islamibank -M ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/peers/peer1.islamibank/tls --enrollment.profile tls --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/islamibank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:3000 --caname ca.islamibank -M ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/peers/peer1.islamibank/tls --enrollment.profile tls --csr.hosts peer1.islamibank --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/islamibank/tls-cert.pem
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/peers/peer1.islamibank/tls/tlscacerts/*  ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/peers/peer1.islamibank/tls/ca.crt
 
@@ -572,7 +572,7 @@ echo
      mkdir -p consortium/crypto-config/peerOrganizations/islamibank/users/User1
 
 
-    fabric-ca-client enroll -u https://user1:user1pw@localhost:3000 --caname ca.islamibank -M ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/users/User1/msp --csr.hosts user1.islamibank --tls.certfiles ${PWD}/consortium/fabric-ca/islamibank/tls-cert.pem
+    fabric-ca-client enroll -u https://user1:user1pw@localhost:3000 --caname ca.islamibank -M ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/users/User1/msp --tls.certfiles ${PWD}/consortium/fabric-ca/islamibank/tls-cert.pem
     
     cp ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/users/User1/msp/config.yaml
 
@@ -582,7 +582,7 @@ echo
     echo "Generate the org admin msp"
     echo 
 
-    fabric-ca-client enroll -u https://islamibankadmin:islamibankadminkpw@localhost:3000 --caname ca.islamibank  -M ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/users/Admin@islamibank/msp --csr.hosts islamibankadmin.islamibank  --tls.certfiles ${PWD}/consortium/fabric-ca/islamibank/tls-cert.pem
+    fabric-ca-client enroll -u https://islamibankadmin:islamibankadminkpw@localhost:3000 --caname ca.islamibank  -M ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/users/Admin@islamibank/msp   --tls.certfiles ${PWD}/consortium/fabric-ca/islamibank/tls-cert.pem
     
     cp ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/islamibank/users/Admin@islamibank/msp/config.yaml
 
@@ -651,7 +651,7 @@ certificateForKrishiBank(){
 
     
 
-    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:5000 --caname ca.krishibank -M ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/peers/peer0.krishibank/msp --csr.hosts peer0.krishibank --tls.certfiles ${PWD}/consortium/fabric-ca/krishibank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:5000 --caname ca.krishibank -M ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/peers/peer0.krishibank/msp --csr.hosts peer0.krishibank --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/krishibank/tls-cert.pem
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/peers/peer0.krishibank/msp/config.yaml
 
@@ -659,7 +659,7 @@ certificateForKrishiBank(){
     echo "Generate peer0 tls certificate"
     echo 
 
-    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:5000 --caname ca.krishibank -M ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/peers/peer0.krishibank/tls --enrollment.profile tls --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/krishibank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer0:peer0pw@localhost:5000 --caname ca.krishibank -M ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/peers/peer0.krishibank/tls --enrollment.profile tls --csr.hosts peer0.krishibank --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/krishibank/tls-cert.pem
     cp ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/peers/peer0.krishibank/tls/tlscacerts/*  ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/peers/peer0.krishibank/tls/ca.crt
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/peers/peer0.krishibank/tls/signcerts/*  ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/peers/peer0.krishibank/tls/server.crt
@@ -692,7 +692,7 @@ echo
     echo "Generate the peer1 msp"
     echo 
 
-    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:5000 --caname ca.krishibank -M ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/peers/peer1.krishibank/msp --csr.hosts peer1.krishibank --tls.certfiles ${PWD}/consortium/fabric-ca/krishibank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:5000 --caname ca.krishibank -M ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/peers/peer1.krishibank/msp --csr.hosts peer1.krishibank --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/krishibank/tls-cert.pem
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/peers/peer1.krishibank/msp/config.yaml
 
@@ -700,7 +700,7 @@ echo
     echo "Generate peer1 tls certificate"
     echo 
 
-    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:5000 --caname ca.krishibank -M ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/peers/peer1.krishibank/tls --enrollment.profile tls --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/krishibank/tls-cert.pem
+    fabric-ca-client enroll -u https://peer1:peer1pw@localhost:5000 --caname ca.krishibank -M ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/peers/peer1.krishibank/tls --enrollment.profile tls --csr.hosts peer1.krishibank --csr.hosts localhost --tls.certfiles ${PWD}/consortium/fabric-ca/krishibank/tls-cert.pem
 
     cp ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/peers/peer1.krishibank/tls/tlscacerts/*  ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/peers/peer1.krishibank/tls/ca.crt
 
@@ -717,7 +717,7 @@ echo
      mkdir -p consortium/crypto-config/peerOrganizations/krishibank/users/User1
 
 
-    fabric-ca-client enroll -u https://user1:user1pw@localhost:5000 --caname ca.krishibank -M ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/users/User1/msp --csr.hosts user1.krishibank --tls.certfiles ${PWD}/consortium/fabric-ca/krishibank/tls-cert.pem
+    fabric-ca-client enroll -u https://user1:user1pw@localhost:5000 --caname ca.krishibank -M ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/users/User1/msp  --tls.certfiles ${PWD}/consortium/fabric-ca/krishibank/tls-cert.pem
     
     cp ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/users/User1/msp/config.yaml
 
@@ -727,7 +727,7 @@ echo
     echo "Generate the org admin msp"
     echo 
 
-    fabric-ca-client enroll -u https://krishibankadmin:krishibankadminkpw@localhost:5000 --caname ca.krishibank  -M ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/users/Admin@krishibank/msp --csr.hosts krishibankadmin.krishibank  --tls.certfiles ${PWD}/consortium/fabric-ca/krishibank/tls-cert.pem
+    fabric-ca-client enroll -u https://krishibankadmin:krishibankadminkpw@localhost:5000 --caname ca.krishibank  -M ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/users/Admin@krishibank/msp   --tls.certfiles ${PWD}/consortium/fabric-ca/krishibank/tls-cert.pem
     
     cp ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/msp/config.yaml ${PWD}/consortium/crypto-config/peerOrganizations/krishibank/users/Admin@krishibank/msp/config.yaml
 
