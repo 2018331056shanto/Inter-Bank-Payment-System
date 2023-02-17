@@ -12,7 +12,7 @@ export CORE_PEER_TLS_ROOTCERT_FILE_KRISHIBANK=${PWD}/consortium/crypto-config/pe
 CHANNEL_NAME="netting-channel"
 CHAINCODE_NAME="netting_cc"
 CHAINCODE_VERSION="1.0"
-CHAINCODE_PATH="./chaincode1/bilateralchannel"
+CHAINCODE_PATH="./chaincode/test/go"
 CHAINCODE_LABEL="netting"
 CHAINCODE_LANG="golang"
 
@@ -279,7 +279,8 @@ chaincodeQuery() {
 hello() {
 
     echo "------------------------new invokation-------------------"
-    peer chaincode invoke -C ${CHANNEL_NAME} -n ${CHAINCODE_NAME} \
+      setEnvForBdbank
+    peer chaincode query -C ${CHANNEL_NAME} -n ${CHAINCODE_NAME} \
     -c '{"function":"addPersonInfo","Args":["03","Rahim","Dhaka","approved"]}'
 
 
@@ -310,6 +311,6 @@ initChaincode
 sleep 5
 chaincodeInvoke
 sleep 5
-# chaincodeQuery
-# sleep 5
-# hello
+chaincodeQuery
+sleep 5
+hello
