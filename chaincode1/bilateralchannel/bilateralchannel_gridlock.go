@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
+
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 
@@ -72,7 +73,7 @@ func (t *SimpleChaincode) unfreezeAllTransactions(
 		return nil, fmt.Errorf(err.Error())
 	}
 
-	return 	frozenQueuesArrAsBytes, nil
+	return frozenQueuesArrAsBytes, nil
 }
 
 func unfreezeAllQueues(

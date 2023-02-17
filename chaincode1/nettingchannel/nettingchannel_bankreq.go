@@ -3,12 +3,11 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 
-
-
-func(t *SimpleChaincode) GetAllBankRequestStruct(
+func (t *SimpleChaincode) GetAllBankRequestStruct(
 	ctx contractapi.TransactionContextInterface) ([]BankRequest, error) {
 
 	queryString := fmt.Sprintf(
@@ -34,8 +33,7 @@ func(t *SimpleChaincode) GetAllBankRequestStruct(
 	return bankRequestArr, nil
 }
 
-
-func(t SimpleChaincode) createBankRequest(
+func (t SimpleChaincode) createBankRequest(
 	ctx contractapi.TransactionContextInterface,
 	requestID string,
 	bankID string,
@@ -62,7 +60,6 @@ func(t SimpleChaincode) createBankRequest(
 
 	return bankRequest, nil
 }
-
 
 func (t *SimpleChaincode) ResetBankRequests(ctx contractapi.TransactionContextInterface) error {
 	bankRequestArr, err := t.GetAllBankRequestStruct(ctx)

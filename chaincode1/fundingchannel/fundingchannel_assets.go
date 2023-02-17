@@ -2,6 +2,7 @@ package main
 
 import (
 	"time"
+
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 
@@ -24,6 +25,5 @@ type PingChaincode struct {
 }
 
 type SimpleChaincode struct {
-
 	contractapi.Contract
 }

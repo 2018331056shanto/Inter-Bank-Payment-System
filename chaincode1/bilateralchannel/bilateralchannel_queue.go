@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
+
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 
@@ -12,7 +13,7 @@ import (
 // ***********************************************************
 
 func (t *SimpleChaincode) getSortedQueueString(
-	ctx contractapi.TransactionContextInterface)([]byte, error) {
+	ctx contractapi.TransactionContextInterface) ([]byte, error) {
 
 	queryString := fmt.Sprintf(
 		`{"selector":{"docType":"%s"}}`,
@@ -68,7 +69,7 @@ func (t *SimpleChaincode) getIncomingQueueString(
 		accountID)
 	queryResults, err := getSortedQueues(ctx, queryString)
 	if err != nil {
-		return  nil, fmt.Errorf("Error retrieving incoming queue: %s", err)
+		return nil, fmt.Errorf("Error retrieving incoming queue: %s", err)
 	}
 	queryResultsString, err := json.MarshalIndent(queryResults, "", "  ")
 	if err != nil {
@@ -187,17 +188,17 @@ func (t *SimpleChaincode) toggleHoldResume(
 
 	err := checkArgArrayLength(args, 1)
 	if err != nil {
-		return nil,fmt.Errorf("Incorrect number of arguments. Expecting 1")
+		return nil, fmt.Errorf("Incorrect number of arguments. Expecting 1")
 	}
 	if len(args[0]) <= 0 {
-		return nil,fmt.Errorf("Reference ID must be a non-empty string")
+		return nil, fmt.Errorf("Reference ID must be a non-empty string")
 	}
 
 	queueID := args[0]
 
 	queuedTx, err := getQueueStructFromID(ctx, queueID)
 	if err != nil {
-		return nil,fmt.Errorf("Error retrieving queued transaction: %s", err)
+		return nil, fmt.Errorf("Error retrieving queued transaction: %s", err)
 	}
 
 	var respMsg string
@@ -211,71 +212,71 @@ func (t *SimpleChaincode) toggleHoldResume(
 
 	queuedTx.UpdateTime, err = getTxTimeStampAsTime(ctx)
 	if err != nil {
-		return nil,fmt.Errorf("Error retrieving transaction timestamp: %s", err)
+		return nil, fmt.Errorf("Error retrieving transaction timestamp: %s", err)
 	}
 
 	queuedTxAsBytes, err := json.Marshal(queuedTx)
 	if err != nil {
-		return nil,fmt.Errorf("Error marshalling queued transaction: %s", err)
+		return nil, fmt.Errorf("Error marshalling queued transaction: %s", err)
 	}
 	err = ctx.GetStub().PutState(queuedTx.RefID, queuedTxAsBytes)
 	if err != nil {
-		return nil,fmt.Errorf("Error updating queued transaction: %s", err)
+		return nil, fmt.Errorf("Error updating queued transaction: %s", err)
 	}
 
-	return []byte(respMsg),nil
+	return []byte(respMsg), nil
 }
 
 func (t *SimpleChaincode) updateQueuePriority(
 	ctx contractapi.TransactionContextInterface,
-	args []string) ([]byte,error) {
+	args []string) ([]byte, error) {
 
 	// instructionID, priority, currentTime
 	err := checkArgArrayLength(args, 2)
 	if err != nil {
-		return nil,fmt.Errorf("Incorrect number of arguments. Expecting 2")	
+		return nil, fmt.Errorf("Incorrect number of arguments. Expecting 2")
 	}
 	if len(args[0]) <= 0 {
-		return nil,fmt.Errorf("Reference ID must be a non-empty string")
+		return nil, fmt.Errorf("Reference ID must be a non-empty string")
 	}
 	if len(args[1]) <= 0 {
-		return nil,fmt.Errorf("Priority must be a non-empty string")
+		return nil, fmt.Errorf("Priority must be a non-empty string")
 	}
 
 	refID := args[0]
 	priority, err := strconv.Atoi(args[1])
 	if err != nil {
-		return nil,fmt.Errorf("Priority must be an integer")
+		return nil, fmt.Errorf("Priority must be an integer")
 	}
 
 	isParticipatingInNetting, err := checkMLNettingParticipation(ctx)
 	if err != nil {
-		return nil,fmt.Errorf("Error checking multilateral netting participation: %s", err)
+		return nil, fmt.Errorf("Error checking multilateral netting participation: %s", err)
 	} else if isParticipatingInNetting {
 		errMsg := "Error: Multilateral netting is ongoing"
-		return nil,fmt.Errorf(errMsg)
+		return nil, fmt.Errorf(errMsg)
 	}
 
 	queuedTx, err := getQueueStructFromID(ctx, refID)
 	if err != nil {
-		return nil,fmt.Errorf("Error retrieving queued transaction: %s", err)
+		return nil, fmt.Errorf("Error retrieving queued transaction: %s", err)
 	}
 	queuedTx.Priority = priority
 	queuedTx.UpdateTime, err = getTxTimeStampAsTime(ctx)
 	if err != nil {
-		return nil,fmt.Errorf("Error retrieving transaction timestamp: %s", err)
+		return nil, fmt.Errorf("Error retrieving transaction timestamp: %s", err)
 	}
 
 	queuedTxAsBytes, err := json.Marshal(queuedTx)
 	if err != nil {
-		return nil,fmt.Errorf("Error marshalling queued transaction: %s", err)
+		return nil, fmt.Errorf("Error marshalling queued transaction: %s", err)
 	}
 	err = ctx.GetStub().PutState(queuedTx.RefID, queuedTxAsBytes)
 	if err != nil {
-		return nil,fmt.Errorf("Error updating queued transaction: %s", err)
+		return nil, fmt.Errorf("Error updating queued transaction: %s", err)
 	}
 
-	return queuedTxAsBytes,nil
+	return queuedTxAsBytes, nil
 }
 
 func (t *SimpleChaincode) cancelQueue(
@@ -285,37 +286,37 @@ func (t *SimpleChaincode) cancelQueue(
 	// queueID
 	err := checkArgArrayLength(args, 1)
 	if err != nil {
-		return nil,fmt.Errorf("Incorrect number of arguments. Expecting 1")
+		return nil, fmt.Errorf("Incorrect number of arguments. Expecting 1")
 	}
 	if len(args[0]) <= 0 {
-		return nil,fmt.Errorf("Reference ID must be a non-empty string")
+		return nil, fmt.Errorf("Reference ID must be a non-empty string")
 	}
 
 	refID := args[0]
 
 	isParticipatingInNetting, err := checkMLNettingParticipation(ctx)
 	if err != nil {
-		return nil,fmt.Errorf("Error checking multilateral netting participation: %s", err)
+		return nil, fmt.Errorf("Error checking multilateral netting participation: %s", err)
 	} else if isParticipatingInNetting {
 		errMsg := "Error: Multilateral netting is ongoing"
-		return nil,fmt.Errorf(errMsg)
+		return nil, fmt.Errorf(errMsg)
 	}
 
 	queuedTx, err := getQueueStructFromID(ctx, refID)
 	if err != nil {
-		return nil,fmt.Errorf("Error retrieving queued transaction: %s", err)
+		return nil, fmt.Errorf("Error retrieving queued transaction: %s", err)
 	}
 	err = moveQueuedTxStructToCompleted(ctx, *queuedTx, "CANCELLED")
 	if err != nil {
-		return nil,fmt.Errorf("Error moving queued transaction to completed: %s", err)
+		return nil, fmt.Errorf("Error moving queued transaction to completed: %s", err)
 	}
 
-	return []byte("Cancellation Success"),nil
+	return []byte("Cancellation Success"), nil
 }
 
 func (t *SimpleChaincode) checkQueueAndSettle(
 	ctx contractapi.TransactionContextInterface,
-	args []string)([]byte, error) {
+	args []string) ([]byte, error) {
 
 	var totalSettledAmount float64
 	var receiverAccount *Account
@@ -324,10 +325,10 @@ func (t *SimpleChaincode) checkQueueAndSettle(
 	// accountID
 	err := checkArgArrayLength(args, 1)
 	if err != nil {
-		return nil,fmt.Errorf("Incorrect number of arguments. Expecting 1")
+		return nil, fmt.Errorf("Incorrect number of arguments. Expecting 1")
 	}
 	if len(args[0]) <= 0 {
-		return nil,fmt.Errorf("Account ID must be a non-empty string")
+		return nil, fmt.Errorf("Account ID must be a non-empty string")
 	}
 
 	accountID := args[0]
@@ -335,20 +336,20 @@ func (t *SimpleChaincode) checkQueueAndSettle(
 	// Access Control
 	err = verifyIdentity(ctx, accountID, regulatorName)
 	if err != nil {
-		return nil,fmt.Errorf("Error verifying identity: %s", err)
+		return nil, fmt.Errorf("Error verifying identity: %s", err)
 	}
 
 	isParticipatingInNetting, err := checkMLNettingParticipation(ctx)
 	if err != nil {
-		return nil,fmt.Errorf("Error checking multilateral netting participation: %s", err)
+		return nil, fmt.Errorf("Error checking multilateral netting participation: %s", err)
 	} else if isParticipatingInNetting {
 		errMsg := "Error: Multilateral netting is ongoing"
-		return nil,fmt.Errorf(errMsg)
+		return nil, fmt.Errorf(errMsg)
 	}
 
 	senderAccount, err := getAccountStructFromID(ctx, accountID)
 	if err != nil {
-		return nil,fmt.Errorf("Error retrieving account: %s", err)
+		return nil, fmt.Errorf("Error retrieving account: %s", err)
 	}
 	accountBal := senderAccount.Amount
 	queryString := fmt.Sprintf(
@@ -361,7 +362,7 @@ func (t *SimpleChaincode) checkQueueAndSettle(
 		accountID)
 	queueArr, err := getSortedQueues(ctx, queryString)
 	if err != nil {
-		return nil,fmt.Errorf("Error retrieving queued transactions: %s", err)
+		return nil, fmt.Errorf("Error retrieving queued transactions: %s", err)
 	}
 
 	totalSettledAmount = 0
@@ -371,7 +372,7 @@ func (t *SimpleChaincode) checkQueueAndSettle(
 
 			err = moveQueuedTxStructToCompleted(ctx, queueElement, "SETTLED")
 			if err != nil {
-				return nil,fmt.Errorf("Error moving queued transaction to completed: %s", err)
+				return nil, fmt.Errorf("Error moving queued transaction to completed: %s", err)
 			}
 			totalSettledAmount += amount
 			accountBal -= amount
@@ -383,7 +384,7 @@ func (t *SimpleChaincode) checkQueueAndSettle(
 
 	accountList, err := getListOfAccounts(ctx)
 	if err != nil {
-		return nil,fmt.Errorf("Error retrieving account list: %s", err)
+		return nil, fmt.Errorf("Error retrieving account list: %s", err)
 	}
 	if accountList[0] != accountID {
 		receiverAccount, err = getAccountStructFromID(ctx, accountList[0])
@@ -391,7 +392,7 @@ func (t *SimpleChaincode) checkQueueAndSettle(
 		receiverAccount, err = getAccountStructFromID(ctx, accountList[1])
 	}
 	if err != nil {
-		return nil,fmt.Errorf("Error retrieving account: %s", err)
+		return nil, fmt.Errorf("Error retrieving account: %s", err)
 	}
 	senderAccount.Amount -= totalSettledAmount
 	receiverAccount.Amount += totalSettledAmount
@@ -405,7 +406,7 @@ func (t *SimpleChaincode) checkQueueAndSettle(
 		accountID)
 	incomingQueueArr, err := getSortedQueues(ctx, queryString)
 	if err != nil {
-		return nil,fmt.Errorf("Error retrieving queued transactions: %s", err)
+		return nil, fmt.Errorf("Error retrieving queued transactions: %s", err)
 	}
 
 	isNetted, err := tryBilateralNetting(ctx,
@@ -414,7 +415,7 @@ func (t *SimpleChaincode) checkQueueAndSettle(
 		unsettledTxList,
 		incomingQueueArr)
 	if err != nil {
-		return nil,fmt.Errorf("Error trying bilateral netting: %s", err)
+		return nil, fmt.Errorf("Error trying bilateral netting: %s", err)
 	}
 	respMsg := "Bilateral Netting"
 	if !isNetted && totalSettledAmount > 0 {
@@ -424,7 +425,7 @@ func (t *SimpleChaincode) checkQueueAndSettle(
 			totalSettledAmount,
 			true)
 		if err != nil {
-			return nil,fmt.Errorf("Error updating account balance: %s", err)
+			return nil, fmt.Errorf("Error updating account balance: %s", err)
 		}
 		err = updateAccountBalance(ctx,
 			receiverAccount.AccountID,
@@ -432,12 +433,12 @@ func (t *SimpleChaincode) checkQueueAndSettle(
 			totalSettledAmount,
 			false)
 		if err != nil {
-			return nil,fmt.Errorf("Error updating account balance: %s", err)
+			return nil, fmt.Errorf("Error updating account balance: %s", err)
 		}
 		respMsg = "no bilateral netting"
 	}
 
-	return []byte(respMsg),nil
+	return []byte(respMsg), nil
 }
 
 func moveQueuedTxStructToCompleted(

@@ -3,14 +3,13 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 
+	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
+
 const timeLayout string = "2006-01-02T15:04:05.999Z"
 const cycleExpiryMinutes float64 = 5
 const regulatorName string = "BangladeshBank"
-
-
 
 func main() {
 	chaincode, err := contractapi.NewChaincode(new(SimpleChaincode))
@@ -24,11 +23,11 @@ func main() {
 	}
 }
 
-func (t *SimpleChaincode) InitLedger(ctx contractapi.TransactionContextInterface) ([]byte,error) {
+func (t *SimpleChaincode) InitLedger(ctx contractapi.TransactionContextInterface) ([]byte, error) {
 	currTime, err := t.getTxTimeStampAsTime(ctx)
 
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 	bankRequestMap := make(map[string]BankRequest)
 
@@ -42,24 +41,23 @@ func (t *SimpleChaincode) InitLedger(ctx contractapi.TransactionContextInterface
 
 	nettingCycleAsBytes, err := json.Marshal(nettingCycle)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 	err = ctx.GetStub().PutState(nettingCycleObjectType, nettingCycleAsBytes)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 
-
-	return nil,nil
+	return nil, nil
 }
 
-func (t *SimpleChaincode) Invoke(ctx contractapi.TransactionContextInterface) ([]byte,error) {
- 
+func (t *SimpleChaincode) Invoke(ctx contractapi.TransactionContextInterface) ([]byte, error) {
+
 	function, args := ctx.GetStub().GetFunctionAndParameters()
 	fmt.Println("invoke MultilateralChannel is running " + function)
 
 	if function == "pingChaincode" {
-		
+
 		return t.pingChaincode(ctx)
 	} else if function == "pingChaincodeQuery" {
 		return t.pingChaincodeQuery(ctx)
@@ -90,32 +88,31 @@ func (t *SimpleChaincode) Invoke(ctx contractapi.TransactionContextInterface) ([
 	}
 
 	fmt.Println("Netting channel chaincode invocation did not find func: " + function) //error
-	return nil,fmt.Errorf("Received unknown function")
+	return nil, fmt.Errorf("Received unknown function")
 }
 
-
-func (t *SimpleChaincode) pingChaincode(ctx contractapi.TransactionContextInterface) ([]byte,error) {
+func (t *SimpleChaincode) pingChaincode(ctx contractapi.TransactionContextInterface) ([]byte, error) {
 	pingChaincodeAsBytes, err := ctx.GetStub().GetState("pingchaincode")
 	if err != nil {
-		return nil,fmt.Errorf("failed to read from world state: %v", err)
+		return nil, fmt.Errorf("failed to read from world state: %v", err)
 	}
 
 	if pingChaincodeAsBytes == nil {
 		pingChaincode := PingChaincode{"pingchaincode", 1}
 		pingChaincodeAsBytes, err = json.Marshal(pingChaincode)
 		if err != nil {
-			return nil,fmt.Errorf("failed to marshal pingchaincode: %v", err)
+			return nil, fmt.Errorf("failed to marshal pingchaincode: %v", err)
 		}
 
 		err = ctx.GetStub().PutState("pingchaincode", pingChaincodeAsBytes)
 		if err != nil {
-			return nil,fmt.Errorf("failed to write to world state: %v", err)
+			return nil, fmt.Errorf("failed to write to world state: %v", err)
 		}
 	} else {
 		pingChaincode := &PingChaincode{}
 		err = json.Unmarshal(pingChaincodeAsBytes, pingChaincode)
 		if err != nil {
-			return nil,fmt.Errorf("failed to unmarshal pingchaincode: %v", err)
+			return nil, fmt.Errorf("failed to unmarshal pingchaincode: %v", err)
 		}
 		pingChaincode.Number++
 		pingChaincodeAsBytes, err = json.Marshal(pingChaincode)
@@ -124,34 +121,33 @@ func (t *SimpleChaincode) pingChaincode(ctx contractapi.TransactionContextInterf
 		}
 		err = ctx.GetStub().PutState("pingchaincode", pingChaincodeAsBytes)
 		if err != nil {
-			return nil,fmt.Errorf("failed to write to world state: %v", err)
+			return nil, fmt.Errorf("failed to write to world state: %v", err)
 		}
 	}
 
-	return pingChaincodeAsBytes,nil
+	return pingChaincodeAsBytes, nil
 }
 
-func (t *SimpleChaincode) pingChaincodeQuery(ctx contractapi.TransactionContextInterface) ([]byte,error) {
-    pingChaincodeAsBytes, err := ctx.GetStub().GetState("pingchaincode")
+func (t *SimpleChaincode) pingChaincodeQuery(ctx contractapi.TransactionContextInterface) ([]byte, error) {
+	pingChaincodeAsBytes, err := ctx.GetStub().GetState("pingchaincode")
 	fmt.Println(pingChaincodeAsBytes)
-    if err != nil {
-        return nil,fmt.Errorf("failed to read from world state: %w", err)
-    }
-    return pingChaincodeAsBytes,nil
+	if err != nil {
+		return nil, fmt.Errorf("failed to read from world state: %w", err)
+	}
+	return pingChaincodeAsBytes, nil
 }
 
+func (t *SimpleChaincode) resetChannel(ctx contractapi.TransactionContextInterface) ([]byte, error) {
 
-func (t *SimpleChaincode) resetChannel(ctx contractapi.TransactionContextInterface) ([]byte,error) {
-	
-	err:=t.resetNettingCycle(ctx)
+	err := t.resetNettingCycle(ctx)
 
 	if err != nil {
-		return nil,fmt.Errorf(err.Error())
+		return nil, fmt.Errorf(err.Error())
 	}
 
 	err = t.ResetBankRequests(ctx)
 	if err != nil {
-		return nil,fmt.Errorf(err.Error())
+		return nil, fmt.Errorf(err.Error())
 	}
-	return nil,nil
+	return nil, nil
 }

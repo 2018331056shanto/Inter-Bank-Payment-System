@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 
@@ -286,7 +287,7 @@ func (t *SimpleChaincode) resetChannel(
 	if err != nil {
 		return nil, fmt.Errorf(err.Error())
 	}
-	
+
 	err = resetAllQueues(ctx)
 	if err != nil {
 		return nil, fmt.Errorf(err.Error())

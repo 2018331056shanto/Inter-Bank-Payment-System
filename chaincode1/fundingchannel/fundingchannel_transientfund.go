@@ -5,23 +5,22 @@ import (
 	"fmt"
 
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
-	
 )
 
 func (t *SimpleChaincode) createTransientFund(
 	ctx contractapi.TransactionContextInterface,
-	args []string) ([]byte,error) {
+	args []string) ([]byte, error) {
 
 	// moveOutInFundID
 	err := checkArgArrayLength(args, 2)
 	if err != nil {
-		return nil,fmt.Errorf(err.Error())
+		return nil, fmt.Errorf(err.Error())
 	}
 	if len(args[0]) <= 0 {
 		return nil, fmt.Errorf("MoveOutInFund ID must be a non-empty string")
 	}
 	if len(args[1]) <= 0 {
-		return nil,fmt.Errorf("Source channel must be a non-empty string")
+		return nil, fmt.Errorf("Source channel must be a non-empty string")
 	}
 
 	moveOutInFundID := args[0]
@@ -29,7 +28,7 @@ func (t *SimpleChaincode) createTransientFund(
 
 	currTime, err := getTxTimeStampAsTime(ctx)
 	if err != nil {
-		return nil,fmt.Errorf(err.Error())
+		return nil, fmt.Errorf(err.Error())
 	}
 
 	queryArgs := [][]byte{[]byte("getState"), []byte(moveOutInFundID)}
@@ -38,30 +37,30 @@ func (t *SimpleChaincode) createTransientFund(
 		sourceChannel,
 		bilateralChaincodeName)
 	if err != nil {
-		return nil,fmt.Errorf(err.Error())
+		return nil, fmt.Errorf(err.Error())
 	}
 
 	moveOutInFund := &TransientFund{}
 	err = json.Unmarshal(moveOutInFundAsBytes, moveOutInFund)
 	if err != nil {
-		return nil,fmt.Errorf(err.Error())
+		return nil, fmt.Errorf(err.Error())
 	}
 
 	transientFundAsBytes, err := ctx.GetStub().GetState(moveOutInFund.RefID)
 	if err != nil {
-		return nil,fmt.Errorf(err.Error())
+		return nil, fmt.Errorf(err.Error())
 	} else if transientFundAsBytes != nil {
 		errMsg := fmt.Sprintf(
 			"Error: Transient fund already exists (%s)",
 			moveOutInFund.RefID)
-		return nil,fmt.Errorf(errMsg)
+		return nil, fmt.Errorf(errMsg)
 	}
 
 	// Owner verification
 	ownerID := moveOutInFund.AccountID
 	err = verifyIdentity(ctx, ownerID)
 	if err != nil {
-		return nil,fmt.Errorf(err.Error())
+		return nil, fmt.Errorf(err.Error())
 	}
 
 	// Update fields before storing
@@ -70,13 +69,13 @@ func (t *SimpleChaincode) createTransientFund(
 
 	transientFundAsBytes, err = json.Marshal(moveOutInFund)
 	if err != nil {
-		return nil,fmt.Errorf(err.Error())
+		return nil, fmt.Errorf(err.Error())
 	}
 
 	err = ctx.GetStub().PutState(moveOutInFundID, transientFundAsBytes)
 	if err != nil {
-		return nil,fmt.Errorf(err.Error())
+		return nil, fmt.Errorf(err.Error())
 	}
 
-	return transientFundAsBytes,nil
+	return transientFundAsBytes, nil
 }

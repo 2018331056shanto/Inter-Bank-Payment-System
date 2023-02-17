@@ -261,17 +261,17 @@ func (t *SimpleChaincode) queryOngoingMLNetting(ctx contractapi.TransactionConte
 
 func (t *SimpleChaincode) getBilateralNettableTxList(
 	ctx contractapi.TransactionContextInterface,
-	args []string) ([]byte,error) {
+	args []string) ([]byte, error) {
 
 	err := t.checkArgArrayLength(args, 2)
 	if err != nil {
-		return nil,fmt.Errorf(err.Error())
+		return nil, fmt.Errorf(err.Error())
 	}
 	if len(args[0]) <= 0 {
-		return nil,fmt.Errorf("bank 1 ID must be a non-empty string")
+		return nil, fmt.Errorf("bank 1 ID must be a non-empty string")
 	}
 	if len(args[1]) <= 0 {
-		return nil,fmt.Errorf("bank 2 ID must be a non-empty string")
+		return nil, fmt.Errorf("bank 2 ID must be a non-empty string")
 	}
 
 	bank1ID := args[0]
@@ -279,11 +279,11 @@ func (t *SimpleChaincode) getBilateralNettableTxList(
 
 	nettingCycle, err := t.getCurrentNettingCycle(ctx)
 	if err != nil {
-		return nil,fmt.Errorf(err.Error())
+		return nil, fmt.Errorf(err.Error())
 	}
 	if nettingCycle.Status != "ACHIEVED" {
 		errMsg := "error: Current netting cycle is not achieved"
-		return nil,fmt.Errorf(errMsg)
+		return nil, fmt.Errorf(errMsg)
 	}
 
 	bank1Request := nettingCycle.BankRequests[bank1ID]
@@ -305,25 +305,25 @@ func (t *SimpleChaincode) getBilateralNettableTxList(
 	}
 	bilateralNettableArrByte, err := json.Marshal(bilateralNettableArr)
 	if err != nil {
-		return nil,fmt.Errorf(err.Error())
+		return nil, fmt.Errorf(err.Error())
 	}
 	fmt.Println(bilateralNettableArrByte)
-	return bilateralNettableArrByte,nil
+	return bilateralNettableArrByte, nil
 }
 
 func (t *SimpleChaincode) checkParticipation(
 	ctx contractapi.TransactionContextInterface,
-	args []string) ([]byte,error) {
+	args []string) ([]byte, error) {
 
 	err := t.checkArgArrayLength(args, 2)
 	if err != nil {
-		return nil,fmt.Errorf(err.Error())
+		return nil, fmt.Errorf(err.Error())
 	}
 	if len(args[0]) <= 0 {
-		return nil,fmt.Errorf("bank 1 ID must be a non-empty string")
+		return nil, fmt.Errorf("bank 1 ID must be a non-empty string")
 	}
 	if len(args[1]) <= 0 {
-		return nil,fmt.Errorf("bank 2 ID must be a non-empty string")
+		return nil, fmt.Errorf("bank 2 ID must be a non-empty string")
 	}
 
 	bank1ID := args[0]
@@ -331,7 +331,7 @@ func (t *SimpleChaincode) checkParticipation(
 
 	nettingCycle, err := t.getCurrentNettingCycle(ctx)
 	if err != nil {
-		return nil,fmt.Errorf(err.Error())
+		return nil, fmt.Errorf(err.Error())
 	}
 
 	_, isBank1Exist := nettingCycle.BankRequests[bank1ID]
@@ -346,15 +346,15 @@ func (t *SimpleChaincode) checkParticipation(
 	}
 	fmt.Println(isParticipating)
 
-	return []byte(strconv.FormatBool(isParticipating)),nil
+	return []byte(strconv.FormatBool(isParticipating)), nil
 }
 
 func (t *SimpleChaincode) getNonNettableTxList(
-	ctx contractapi.TransactionContextInterface) ([]byte,error) {
+	ctx contractapi.TransactionContextInterface) ([]byte, error) {
 
 	nettingCycle, err := t.getCurrentNettingCycle(ctx)
 	if err != nil {
-		return nil,fmt.Errorf(err.Error())
+		return nil, fmt.Errorf(err.Error())
 	}
 	nonNettableMap := make(map[string]int)
 	for _, request := range nettingCycle.BankRequests {
@@ -369,10 +369,10 @@ func (t *SimpleChaincode) getNonNettableTxList(
 	}
 	nonNettableArrayByte, err := json.Marshal(nonNettableArray)
 	if err != nil {
-		return nil,fmt.Errorf(err.Error())
+		return nil, fmt.Errorf(err.Error())
 	}
 	fmt.Println(nonNettableArrayByte)
-	return nonNettableArrayByte,nil
+	return nonNettableArrayByte, nil
 }
 
 func (t *SimpleChaincode) resetNettingCycle(

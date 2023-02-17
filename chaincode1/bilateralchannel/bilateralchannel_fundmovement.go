@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 

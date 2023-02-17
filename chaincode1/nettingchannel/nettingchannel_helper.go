@@ -15,7 +15,6 @@ import (
 	mspprotos "github.com/hyperledger/fabric-protos-go/msp"
 )
 
-
 func (t *SimpleChaincode) getCurrentNettingCycle(
 	ctx contractapi.TransactionContextInterface) (*NettingCycle, error) {
 
@@ -72,7 +71,6 @@ func (t *SimpleChaincode) verifyIdentity(
 	}
 	return nil
 }
-
 
 func (t *SimpleChaincode) getTxTimeStampAsTime(
 	ctx contractapi.TransactionContextInterface) (time.Time, error) {
