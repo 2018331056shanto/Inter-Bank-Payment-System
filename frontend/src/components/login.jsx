@@ -1,23 +1,50 @@
 import React, { Component } from 'react'
-export default class Login extends Component {
-  render() {
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
+import { POST } from '../api/api';
+const Login=(props)=> {
+
+
+  let [user,setUser]=useState("")
+  let [org,setOrg]=useState("")
+
+  const onChangeUser=(e)=>{
+
+    console.log(e.target.value)
+    setUser(e.target.value)
+  }
+  const onChangeOrg=(e)=>{
+
+    console.log(e.target.value)
+    setOrg(e.target.value)
+  }
+
+  const onClickHandler=()=>{
+
+
+    const res=POST("/login",{user:user,org:org})
+
+  }
+  
     return (
       <form>
         <h3>Sign In</h3>
         <div className="mb-3">
-          <label>Email address</label>
+          <label>Username</label>
           <input
-            type="email"
+            onChange={(e)=>onChangeUser(e)}
+            type="text"
             className="form-control"
-            placeholder="Enter email"
+            placeholder="Enter username"
           />
         </div>
         <div className="mb-3">
-          <label>Password</label>
+          <label>Organization</label>
           <input
-            type="password"
+            onChange={(e)=>onChangeOrg(e)}
+            type="text"
             className="form-control"
-            placeholder="Enter password"
+            placeholder="Enter organization name"
           />
         </div>
         <div className="mb-3">
@@ -33,7 +60,7 @@ export default class Login extends Component {
           </div>
         </div>
         <div className="d-grid">
-          <button type="submit" className="btn btn-primary">
+          <button onClick={onClickHandler} type="submit" className="btn btn-primary">
             Submit
           </button>
         </div>
@@ -43,4 +70,5 @@ export default class Login extends Component {
       </form>
     )
   }
-}
+
+  export default Login

@@ -19,7 +19,7 @@ sleep 5
 echo " "
 cd docker
 echo "===============Bringing up the Network containrs ================"
-docker-compose -f docker-compose-net.yaml up -d --remove-orphans
+docker-compose -f docker-compose-net.yaml up -d 
 
 echo "=============Network Container Brought up Successfully======================"
 echo " "

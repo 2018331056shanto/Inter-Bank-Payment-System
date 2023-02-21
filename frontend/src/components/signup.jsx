@@ -1,39 +1,54 @@
 import React, { Component } from 'react'
-export default class SignUp extends Component {
-  render() {
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { POST } from '../api/api';
+import { useState } from 'react'
+const  SignUp=(props)=>{
+    let [org,setOrg]=useState("abbank")
+    let [user,setUser]=useState("")
+
+    const onChangeSelect=(e)=>{
+
+      setOrg(e.target.value)
+      console.log(e.target.value)
+    }
+
+    const onChangeInput=(e)=>{
+      console.log(e.target.value)
+      setUser(e.target.value)
+
+    }
+    // console.log(org+" :hall")
+
+    const onClickHandler=()=>{
+
+      const res=POST("/register",{user:user,org:org})
+    }
     return (
       <form>
         <h3>Sign Up</h3>
+  
+       
         <div className="mb-3">
-          <label>First name</label>
+          <label>Username</label>
           <input
             type="text"
             className="form-control"
-            placeholder="First name"
+            placeholder="Enter username"
+            onChange={(e)=>onChangeInput(e)}
           />
         </div>
         <div className="mb-3">
-          <label>Last name</label>
-          <input type="text" className="form-control" placeholder="Last name" />
-        </div>
-        <div className="mb-3">
-          <label>Email address</label>
-          <input
-            type="email"
-            className="form-control"
-            placeholder="Enter email"
-          />
-        </div>
-        <div className="mb-3">
-          <label>Password</label>
-          <input
-            type="password"
-            className="form-control"
-            placeholder="Enter password"
-          />
+          <label>Organization</label>
+         <select onChange={(e)=>onChangeSelect(e)} style={{marginLeft:"15px"}}name="bank">
+          <option value="abbank">AB Bank</option>
+          <option value="bdbank">BD Bank</option>
+          <option value="dbbank">DB Bank</option>
+          <option value="islamibank">Islami Bank</option>
+          <option value="krishibank">Krishi Bank</option>
+          </select>
         </div>
         <div className="d-grid">
-          <button type="submit" className="btn btn-primary">
+          <button onClick={onClickHandler} type="submit" className="btn btn-primary">
             Sign Up
           </button>
         </div>
@@ -43,4 +58,5 @@ export default class SignUp extends Component {
       </form>
     )
   }
-}
+
+export default SignUp
