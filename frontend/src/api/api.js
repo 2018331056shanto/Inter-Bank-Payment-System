@@ -10,5 +10,6 @@ export const POST=async(x,y)=>{
     console.log(x+"  "+y)
     
     const res=await API.post(x,y)
+    // console.log(res)
     return res;
 }

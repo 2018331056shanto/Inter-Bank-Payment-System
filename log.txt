@@ -1,4 +1,4 @@
 Installed chaincodes on peer:
-Package ID: netting:590b95f636fb6d882a243632390e0ae61a3b88d0841501255e625009a4c53ab1, Label: netting
-Package ID: funding:9e40abf9135f3a466f83987fc56c1f935b084025a7f9263e02624ff033c4539e, Label: funding
-Package ID: bilateral:5f96e1a7a9d12198da1cc6a692bb187a2bd57759fde4a7ce4b7e22d4654bda68, Label: bilateral
+Package ID: netting:78ec0310a828d61b7de866da73bbd0181689966a7c5da8d92199186d11c6df96, Label: netting
+Package ID: funding:5674fd83adfe7d2258eed76f9d8bb4360eb94440280eadb6bc57460acdb7ed4e, Label: funding
+Package ID: bilateral:e5ef14ec746c69dfb13056811a8b1c6d59ce64d90d9c9433d478af330f35be59, Label: bilateral

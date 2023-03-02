@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { POST } from '../api/api';
 import { useState } from 'react'
+import Nav from './NavbarLogin/NavbarLogin';
 const  SignUp=(props)=>{
     let [org,setOrg]=useState("abbank")
     let [user,setUser]=useState("")
@@ -25,6 +26,7 @@ const  SignUp=(props)=>{
     }
     return (
       <form>
+        <Nav/>
         <h3>Sign Up</h3>
   
        

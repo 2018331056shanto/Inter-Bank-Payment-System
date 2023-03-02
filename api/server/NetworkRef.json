@@ -1,0 +1,80 @@
+{
+    "regulators": [
+        "bdbank"
+    ],
+    "multilateralChannels": [
+        "funding-channel",
+        "netting-channel"
+    ],
+    "chainCodeMapping": {
+        "netting" : "netting_cc",
+        "funding" : "funding_cc",
+        "bilateral" : "bilateral_cc"
+    },
+    "channelMapping":{
+
+        "netting-channel":[
+
+            "bdbank",
+            "abbank",
+            "dbbank",
+            "krishibank",
+            "islamibank"
+        ],
+
+        "funding-channel":[
+
+            "bdbank",
+            "abbank",
+            "dbbank",
+            "krishibank",
+            "islamibank"
+        ],
+        
+        "abbank-dbbank-channel":[
+
+            "bdbank",
+            "abbank",
+            "dbbank"
+        ],
+
+        "abbank-krishibank-channel":[
+
+            "bdbank",
+            "abbank",
+            "krishibank"
+            
+        ],
+
+        "dbbank-krishibank-channel":[
+
+            "bdbank",
+            "dbbank",
+            "krishibank"
+        ],
+
+        "islamibank-abbank-channel":[
+
+            "bdbank",
+            "islamibank",
+            "abbank"
+        ],
+        "islamibank-dbbank-channel":[
+
+            "bdbank",
+            "islamibank",
+            "dbbank"
+        ],
+
+        "islamibank-krishibank-channel":[
+
+            "bdbank",
+            "islamibank",
+            "krishibank"
+        ]
+
+
+    }
+
+
+}

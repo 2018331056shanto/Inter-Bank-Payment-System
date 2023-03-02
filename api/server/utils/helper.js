@@ -4,9 +4,52 @@ const FabricCAService=require("fabric-ca-client")
 const fs=require("fs")
 const util=require("util")
 const {ok}=require("assert")
+const http=require('http')
+const netRef=require("../NetworkRef.json")
+const log4js=require("log4js")
+const logger=log4js.getLogger("Helper")
+logger.level="ERROR"
 
 
+const getLogger=(moduleName)=>{
+    const logger=log4js.getLogger("moduleName")
+    logger.level="ERROR"
+    return logger
+}
+const getChannelList=async(org)=>{
 
+    if(netRef.regulators.includes(org))
+    {
+        let channelNames=Object.keys(netRef.channelMapping).map(val=>val)
+        // console.log(channelNames)
+        let allChannels=Object.values(netRef.channelMapping).map((val,idx)=>{
+            
+            if(val.includes(org))
+            {
+                return channelNames[idx]
+            }
+        })
+
+        return allChannels
+        
+    }
+    else{
+
+        let channelNames=Object.keys(netRef.channelMapping).map(val=>val)
+        // console.log(channelNames)
+        let bileteral=Object.values(netRef.channelMapping).map((val,idx)=>{
+            
+            if(val.includes(org))
+            {
+                return channelNames[idx]
+            }
+
+        })
+        bileteral=bileteral.filter(e=>e!=undefined)
+        return bileteral
+    }
+   
+}
 const getCCP=async (org)=>{
 
     let ccpPath
@@ -187,10 +230,25 @@ const registerUser=async (user,org)=>{
     return response
 }
 
+const isUserRegistered=async (user,org)=>{
+
+    const walletPath=await getWalletPath(org)
+    const wallet=await Wallets.newFileSystemWallet(walletPath)
+    const userIdentity=await wallet.get(user)
+    // console.log(userIdentity)
+    if(userIdentity){
+        console.log(`An identity for the user ${user} exists in the wallet`);
+        return true
+    }
+    return false
+}
+
 module.exports={
     getCCP:getCCP,
     getCaUrl:getCaUrl,
     getWalletPath:getWalletPath,
     registerUser:registerUser,
-
+    isUserRegistered:isUserRegistered,
+    getChannelList:getChannelList,
+    getLogger:getLogger
 }

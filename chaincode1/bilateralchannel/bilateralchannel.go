@@ -16,7 +16,7 @@ const fundingChaincodeName string = "funding_cc"
 const fundingChannelName string = "funding-channel"
 
 const isBilateralNetting bool = true
-const regulatorName string = "BangladeshBank"
+const regulatorName string = "bdbank"
 
 type lessFunc func(p1, p2 *QueuedTransaction) bool
 

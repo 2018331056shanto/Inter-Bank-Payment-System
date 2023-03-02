@@ -2,32 +2,44 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import { POST } from '../api/api';
+
+import Nav from './NavbarLogin/NavbarLogin';
 const Login=(props)=> {
 
 
   let [user,setUser]=useState("")
   let [org,setOrg]=useState("")
+  let [res,setRes]=useState([])
 
   const onChangeUser=(e)=>{
 
     console.log(e.target.value)
     setUser(e.target.value)
   }
-  const onChangeOrg=(e)=>{
+  const onChangeSelect=(e)=>{
 
     console.log(e.target.value)
     setOrg(e.target.value)
   }
 
-  const onClickHandler=()=>{
+  const onClickHandler=async()=>{
 
-
-    const res=POST("/login",{user:user,org:org})
+    // console.log("its submit button")
+    try {
+      const response =  await POST("/login", { user: user, org: org });
+      console.log(response.data.message);
+      console.log(localStorage.getItem('token'))
+      setRes(response);
+    } catch (error) {
+      console.log(error);
+    }
 
   }
   
     return (
-      <form>
+      <div>
+        <Nav/>
+        
         <h3>Sign In</h3>
         <div className="mb-3">
           <label>Username</label>
@@ -40,34 +52,44 @@ const Login=(props)=> {
         </div>
         <div className="mb-3">
           <label>Organization</label>
-          <input
-            onChange={(e)=>onChangeOrg(e)}
-            type="text"
-            className="form-control"
-            placeholder="Enter organization name"
-          />
+         <select onClick={(e)=>onChangeSelect(e)} style={{marginLeft:"15px"}}name="bank">
+          <option value="abbank">AB Bank</option>
+          <option value="bdbank">BD Bank</option>
+          <option value="dbbank">DB Bank</option>
+          <option value="islamibank">Islami Bank</option>
+          <option value="krishibank">Krishi Bank</option>
+          </select>
         </div>
         <div className="mb-3">
-          <div className="custom-control custom-checkbox">
+          <div 
+          className="custom-control custom-checkbox"
+          >
             <input
               type="checkbox"
               className="custom-control-input"
               id="customCheck1"
             />
-            <label className="custom-control-label" htmlFor="customCheck1">
+            <label
+             className="custom-control-label"
+              htmlFor="customCheck1"
+              >
               Remember me
             </label>
           </div>
         </div>
-        <div className="d-grid">
-          <button onClick={onClickHandler} type="submit" className="btn btn-primary">
+        <div 
+        className="d-grid"
+        >
+          <button onClick={onClickHandler}
+           className="btn btn-primary"
+           >
             Submit
           </button>
         </div>
         <p className="forgot-password text-right">
           Forgot <a href="#">password?</a>
         </p>
-      </form>
+       </div>
     )
   }
 

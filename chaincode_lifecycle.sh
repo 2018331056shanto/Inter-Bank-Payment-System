@@ -11,18 +11,30 @@ export CORE_PEER_TLS_ROOTCERT_FILE_KRISHIBANK=${PWD}/consortium/crypto-config/pe
 
 CHANNEL_NAME1="netting-channel"
 CHAINCODE_NAME1="netting_cc"
-CHAINCODE_PATH1="./chaincode1/nettingchannel"
+# CHAINCODE_PATH1="./chaincode1/nettingchannel"
+CHAINCODE_PATH1="./chaincode/test/go"
 CHAINCODE_LABEL1="netting"
+
 CHANNEL_NAME2="funding-channel"
 CHAINCODE_NAME2="funding_cc"
-CHAINCODE_PATH2="./chaincode1/fundingchannel"
+# CHAINCODE_PATH2="./chaincode1/fundingchannel"
+CHAINCODE_PATH2="./chaincode/test/go"
+
 CHAINCODE_LABEL2="funding"
 
 CHAINCODE_NAME3="bilateral_cc"
-CHAINCODE_PATH3="./chaincode1/bilateralchannel"
+# CHAINCODE_PATH3="./chaincode1/bilateralchannel"
+CHAINCODE_PATH3="./chaincode/test/go"
+
 CHAINCODE_LABEL3="bilateral"
+
+
 CHAINCODE_LANG="golang"
-CHAINCODE_VERSION="1.0"
+CHAINCODE_VERSION1="1.0"
+CHAINCODE_VERSION2="2.0"
+CHAINCODE_VERSION3="3.0"
+
+
 
 
 CHANNEL_NAME3="islamibank-abbank-channel"
@@ -242,49 +254,49 @@ queryInstalledChaincode() {
 approveChaincodeByBDbank() {
     setEnvForBdbank
     echo Green "========== Approve Installed ${CHAINCODE_NAME1} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME1} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME1} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION1} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHAINCODE_NAME1} Successful by Peer0 org1 =========="
     echo ""   
 
     setEnvForBdbank
     echo Green "========== Approve Installed ${CHAINCODE_NAME2} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME2} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME2} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION2} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHAINCODE_NAME2} Successful by Peer0 org1 =========="
     echo ""  
 
     setEnvForBdbank
     echo Green "========== Approve Installed ${CHANNEL_NAME3} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME3} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME3} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHAINCODE_NAME3} Successful by Peer0 org1 =========="
     echo "" 
 
    setEnvForBdbank
     echo Green "========== Approve Installed ${CHANNEL_NAME4} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME4} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME4} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHANNEL_NAME4} Successful by Peer0 org1 =========="
     echo ""
 
     setEnvForBdbank
     echo Green "========== Approve Installed ${CHANNEL_NAME5} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME5} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME5} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHANNEL_NAME5} Successful by Peer0 org1 =========="
     echo ""
 
     setEnvForBdbank
     echo Green "========== Approve Installed ${CHANNEL_NAME6} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME6} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME6} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHANNEL_NAME6} Successful by Peer0 org1 =========="
     echo ""
 
     setEnvForBdbank
     echo Green "========== Approve Installed ${CHANNEL_NAME7} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME7} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME7} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHANNEL_NAME7} Successful by Peer0 org1 =========="
     echo ""
 
     setEnvForBdbank
     echo Green "========== Approve Installed ${CHANNEL_NAME8} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME8} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME8} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHANNEL_NAME8} Successful by Peer0 org1 =========="
     echo ""
 
@@ -294,13 +306,13 @@ approveChaincodeByBDbank() {
 checkCommitReadynessForBDbank() {
     setEnvForBdbank
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME1} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME1} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME1} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION1} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME1} Successful on Peer0 org1 =========="
     echo ""
 
      setEnvForBdbank
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME2} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME2} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME2} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION2} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME2} Successful on Peer0 org1 =========="
     echo ""
 
@@ -310,32 +322,32 @@ checkCommitReadynessForBDbank() {
 approveChaincodeByABbank() {
     setEnvForAbbank
     echo Green "========== Approve Installed ${CHAINCODE_NAME1} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME1} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME1} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION1} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHAINCODE_NAME1} Successful by Peer0 org1 =========="
     echo ""
 
     setEnvForAbbank
     echo Green "========== Approve Installed ${CHAINCODE_NAME2} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME2} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME2} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION2} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHAINCODE_NAME2} Successful by Peer0 org1 =========="
     echo ""
 
     setEnvForAbbank
     echo Green "========== Approve Installed ${CHAINCODE_NAME3} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME3} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME3} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHAINCODE_NAME3} Successful by Peer0 org1 =========="
     echo ""
 
     setEnvForAbbank
     echo Green "========== Approve Installed ${CHANNEL_NAME6} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME6} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME6} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHANNEL_NAME6} Successful by Peer0 org1 =========="
     echo ""
 
 
     setEnvForAbbank
     echo Green "========== Approve Installed ${CHANNEL_NAME7} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME7} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME7} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHANNEL_NAME7} Successful by Peer0 org1 =========="
     echo ""
 
@@ -345,31 +357,31 @@ approveChaincodeByABbank() {
 checkCommitReadynessForABbank() {
     setEnvForAbbank
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME1} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME1} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME1} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION1} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME1} Successful on Peer0 org1 =========="
     echo ""
 
     setEnvForAbbank
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME2} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME2} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME2} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION2} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME2} Successful on Peer0 org1 =========="
     echo ""
 
     setEnvForAbbank
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME3} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME3} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME3} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME3} Successful on Peer0 org1 =========="
     echo ""
 
     setEnvForAbbank
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME6} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME6} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME6} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME6} Successful on Peer0 org1 =========="
     echo ""
 
     setEnvForAbbank
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME7} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME7} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME7} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME7} Successful on Peer0 org1 =========="
     echo ""
 
@@ -377,31 +389,31 @@ checkCommitReadynessForABbank() {
 approveChaincodeByDBbank() {
     setEnvForDbbank
     echo Green "========== Approve Installed ${CHAINCODE_NAME1} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME1} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME1} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION1} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHAINCODE_NAME1} Successful by Peer0 org1 =========="
     echo ""
 
     setEnvForDbbank
     echo Green "========== Approve Installed ${CHAINCODE_NAME2} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME2} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME2} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION2} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHAINCODE_NAME2} Successful by Peer0 org1 =========="
     echo ""
 
     setEnvForDbbank
     echo Green "========== Approve Installed ${CHAINCODE_NAME4} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME4} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME4} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHAINCODE_NAME4} Successful by Peer0 org1 =========="
     echo ""
 
      setEnvForDbbank
     echo Green "========== Approve Installed ${CHANNEL_NAME6} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME6} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME6} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHANNEL_NAME6} Successful by Peer0 org1 =========="
     echo ""
 
      setEnvForDbbank
     echo Green "========== Approve Installed ${CHANNEL_NAME8} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME8} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME8} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHANNEL_NAME8} Successful by Peer0 org1 =========="
     echo ""
 
@@ -410,31 +422,31 @@ approveChaincodeByDBbank() {
 checkCommitReadynessForDBbank() {
     setEnvForDbbank
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME1} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME1} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME1} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION1} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME1} Successful on Peer0 org1 =========="
     echo ""
 
     setEnvForDbbank
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME2} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME2} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME2} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION2} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME2} Successful on Peer0 org1 =========="
     echo ""
 
      setEnvForDbbank
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME4} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME4} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME4} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME4} Successful on Peer0 org1 =========="
     echo ""
 
      setEnvForDbbank
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME6} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME6} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME6} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME6} Successful on Peer0 org1 =========="
     echo ""
 
     setEnvForDbbank
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME8} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME8} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME8} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME8} Successful on Peer0 org1 =========="
     echo ""
 }
@@ -442,32 +454,32 @@ checkCommitReadynessForDBbank() {
 approveChaincodeByIslamibank() {
     setEnvForIslamibank
     echo Green "========== Approve Installed ${CHAINCODE_NAME1} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME1} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME1} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION1} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHAINCODE_NAME1} Successful by Peer0 org1 =========="
     echo ""
 
     setEnvForIslamibank
     echo Green "========== Approve Installed ${CHAINCODE_NAME2} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME2} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME2} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION2} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHAINCODE_NAME2} Successful by Peer0 org1 =========="
     echo ""
 
 
     setEnvForIslamibank
     echo Green "========== Approve Installed ${CHANNEL_NAME3} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME3} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME3} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHANNEL_NAME3} Successful by Peer0 org1 =========="
     echo ""
     
     setEnvForIslamibank
     echo Green "========== Approve Installed ${CHANNEL_NAME4} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME4} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME4} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHANNEL_NAME4} Successful by Peer0 org1 =========="
     echo ""
 
     setEnvForIslamibank
     echo Green "========== Approve Installed ${CHANNEL_NAME5} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME5} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME5} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHANNEL_NAME5} Successful by Peer0 org1 =========="
     echo ""
 }
@@ -475,31 +487,31 @@ approveChaincodeByIslamibank() {
 checkCommitReadynessForIslamibank() {
     setEnvForIslamibank
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME1} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME1} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME1} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION1} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME1} Successful on Peer0 org1 =========="
     echo ""
 
     setEnvForIslamibank
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME2} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME2} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME2} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION2} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME2} Successful on Peer0 org1 =========="
     echo ""
 
     setEnvForIslamibank
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME3} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME3} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME3} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME3} Successful on Peer0 org1 =========="
     echo ""
 
     setEnvForIslamibank
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME4} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME4} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME4} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME4} Successful on Peer0 org1 =========="
     echo ""
 
     setEnvForIslamibank
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME5} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME5} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME5} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME5} Successful on Peer0 org1 =========="
     echo ""
 }
@@ -507,31 +519,31 @@ checkCommitReadynessForIslamibank() {
 approveChaincodeByKrishibank() {
     setEnvForKrishibank
     echo Green "========== Approve Installed ${CHAINCODE_NAME1} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME1} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME1} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION1} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHAINCODE_NAME1} Successful by Peer0 org1 =========="
     echo ""
 
     setEnvForKrishibank
     echo Green "========== Approve Installed ${CHAINCODE_NAME2} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME2} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME2} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION2} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHAINCODE_NAME2} Successful by Peer0 org1 =========="
     echo ""
 
     setEnvForKrishibank
     echo Green "========== Approve Installed ${CHANNEL_NAME5} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME5} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME5} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHAINCODE_NAME5} Successful by Peer0 org1 =========="
     echo ""
 
     setEnvForKrishibank
     echo Green "========== Approve Installed ${CHANNEL_NAME7} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME7} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME7} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHAINCODE_NAME7} Successful by Peer0 org1 =========="
     echo ""
 
     setEnvForKrishibank
     echo Green "========== Approve Installed ${CHANNEL_NAME8} by Peer0 org1 =========="
-    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME8} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 --init-required
+    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME8} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --package-id ${PACKAGE_ID} --sequence 1 --init-required
     echo Green "========== Approve Installed ${CHAINCODE_NAME8} Successful by Peer0 org1 =========="
     echo ""
 }
@@ -539,31 +551,31 @@ approveChaincodeByKrishibank() {
 checkCommitReadynessForKrishibank() {
     setEnvForKrishibank
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME1} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME1} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME1} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME1} --version ${CHAINCODE_VERSION1} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME1} Successful on Peer0 org1 =========="
     echo ""
 
     setEnvForKrishibank
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME2} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME2} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME2} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME2} --version ${CHAINCODE_VERSION2} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHAINCODE_NAME2} Successful on Peer0 org1 =========="
     echo ""
 
     setEnvForKrishibank
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME5} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME5} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME5} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME5} Successful on Peer0 org1 =========="
     echo ""
 
     setEnvForKrishibank
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME7} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME7} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME7} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME7} Successful on Peer0 org1 =========="
     echo ""
 
     setEnvForKrishibank
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME8} on Peer0 org1 =========="
-    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME8} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION} --sequence 1 --output json --init-required
+    peer lifecycle chaincode checkcommitreadiness -o localhost:7050 --channelID ${CHANNEL_NAME8} --tls --cafile ${ORDERER_CA} --name ${CHAINCODE_NAME3} --version ${CHAINCODE_VERSION3} --sequence 1 --output json --init-required
     echo Green "========== Check Commit Readiness of Installed ${CHANNEL_NAME8} Successful on Peer0 org1 =========="
     echo ""
 
@@ -573,49 +585,49 @@ checkCommitReadynessForKrishibank() {
 commitChaincode() {
     setEnvForBdbank
     echo Green "========== Commit Installed Chaincode on ${CHANNEL_NAME1} =========="
-    peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME1} --name ${CHAINCODE_NAME1} --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK} --peerAddresses localhost:2050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ABBANK} --peerAddresses localhost:3050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ISLAMIBANK}  --peerAddresses localhost:4050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_DBBANK} --peerAddresses localhost:5050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_KRISHIBANK} --version ${CHAINCODE_VERSION} --sequence 1 --init-required
+    peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME1} --name ${CHAINCODE_NAME1} --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK} --peerAddresses localhost:2050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ABBANK} --peerAddresses localhost:3050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ISLAMIBANK}  --peerAddresses localhost:4050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_DBBANK} --peerAddresses localhost:5050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_KRISHIBANK} --version ${CHAINCODE_VERSION1} --sequence 1 --init-required
     echo Green "========== Commit Installed Chaincode on ${CHANNEL_NAME1} Successful =========="
     echo ""
 
     setEnvForBdbank
     echo Green "========== Commit Installed Chaincode on ${CHANNEL_NAME2} =========="
-    peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME2} --name ${CHAINCODE_NAME2} --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK} --peerAddresses localhost:2050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ABBANK} --peerAddresses localhost:3050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ISLAMIBANK}  --peerAddresses localhost:4050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_DBBANK} --peerAddresses localhost:5050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_KRISHIBANK} --version ${CHAINCODE_VERSION} --sequence 1 --init-required
+    peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME2} --name ${CHAINCODE_NAME2} --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK} --peerAddresses localhost:2050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ABBANK} --peerAddresses localhost:3050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ISLAMIBANK}  --peerAddresses localhost:4050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_DBBANK} --peerAddresses localhost:5050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_KRISHIBANK} --version ${CHAINCODE_VERSION2} --sequence 1 --init-required
     echo Green "========== Commit Installed Chaincode on ${CHANNEL_NAME2} Successful =========="
     echo ""
 
     setEnvForBdbank
     echo Green "========== Commit Installed Chaincode on ${CHANNEL_NAME3} =========="
-    peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME3} --name ${CHAINCODE_NAME3} --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK} --peerAddresses localhost:2050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ABBANK} --peerAddresses localhost:3050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ISLAMIBANK}  --version ${CHAINCODE_VERSION} --sequence 1 --init-required
+    peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME3} --name ${CHAINCODE_NAME3} --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK} --peerAddresses localhost:2050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ABBANK} --peerAddresses localhost:3050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ISLAMIBANK}  --version ${CHAINCODE_VERSION3} --sequence 1 --init-required
     echo Green "========== Commit Installed Chaincode on ${CHANNEL_NAME3} Successful =========="
     echo ""
 
     setEnvForBdbank
     echo Green "========== Commit Installed Chaincode on ${CHANNEL_NAME4} =========="
-    peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME4} --name ${CHAINCODE_NAME3} --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK}   --peerAddresses localhost:3050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ISLAMIBANK}  --peerAddresses localhost:4050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_DBBANK}  --version ${CHAINCODE_VERSION} --sequence 1 --init-required
+    peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME4} --name ${CHAINCODE_NAME3} --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK}   --peerAddresses localhost:3050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ISLAMIBANK}  --peerAddresses localhost:4050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_DBBANK}  --version ${CHAINCODE_VERSION3} --sequence 1 --init-required
     echo Green "========== Commit Installed Chaincode on ${CHANNEL_NAME4} Successful =========="
     echo ""
 
     setEnvForBdbank
     echo Green "========== Commit Installed Chaincode on ${CHANNEL_NAME5} =========="
-    peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME5} --name ${CHAINCODE_NAME3} --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK}  --peerAddresses localhost:3050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ISLAMIBANK} --peerAddresses localhost:5050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_KRISHIBANK} --version ${CHAINCODE_VERSION} --sequence 1 --init-required
+    peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME5} --name ${CHAINCODE_NAME3} --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK}  --peerAddresses localhost:3050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ISLAMIBANK} --peerAddresses localhost:5050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_KRISHIBANK} --version ${CHAINCODE_VERSION3} --sequence 1 --init-required
     echo Green "========== Commit Installed Chaincode on ${CHANNEL_NAME5} Successful =========="
     echo ""
 
     setEnvForBdbank
     echo Green "========== Commit Installed Chaincode on ${CHANNEL_NAME6} =========="
-    peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME6} --name ${CHAINCODE_NAME3} --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK} --peerAddresses localhost:2050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ABBANK} --peerAddresses localhost:4050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_DBBANK}  --version ${CHAINCODE_VERSION} --sequence 1 --init-required
+    peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME6} --name ${CHAINCODE_NAME3} --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK} --peerAddresses localhost:2050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ABBANK} --peerAddresses localhost:4050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_DBBANK}  --version ${CHAINCODE_VERSION3} --sequence 1 --init-required
     echo Green "========== Commit Installed Chaincode on ${CHANNEL_NAME6} Successful =========="
     echo ""
 
     setEnvForBdbank
     echo Green "========== Commit Installed Chaincode on ${CHANNEL_NAME7} =========="
-    peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME7} --name ${CHAINCODE_NAME3} --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK} --peerAddresses localhost:2050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ABBANK} --peerAddresses localhost:5050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_KRISHIBANK} --version ${CHAINCODE_VERSION} --sequence 1 --init-required
+    peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME7} --name ${CHAINCODE_NAME3} --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK} --peerAddresses localhost:2050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ABBANK} --peerAddresses localhost:5050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_KRISHIBANK} --version ${CHAINCODE_VERSION3} --sequence 1 --init-required
     echo Green "========== Commit Installed Chaincode on ${CHANNEL_NAME7} Successful =========="
     echo ""
 
     setEnvForBdbank
     echo Green "========== Commit Installed Chaincode on ${CHANNEL_NAME8} =========="
-    peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME8} --name ${CHAINCODE_NAME3} --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK}   --peerAddresses localhost:4050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_DBBANK} --peerAddresses localhost:5050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_KRISHIBANK} --version ${CHAINCODE_VERSION} --sequence 1 --init-required
+    peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME8} --name ${CHAINCODE_NAME3} --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK}   --peerAddresses localhost:4050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_DBBANK} --peerAddresses localhost:5050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_KRISHIBANK} --version ${CHAINCODE_VERSION3} --sequence 1 --init-required
     echo Green "========== Commit Installed Chaincode on ${CHANNEL_NAME8} Successful =========="
     echo ""
 }
@@ -841,8 +853,8 @@ chaincodeQuery() {
     echo "-------------------- Chaincode Query --------------------"
     setEnvForBdbank
 
-    peer chaincode query -C ${CHANNEL_NAME1} -n ${CHAINCODE_NAME1} \
-    -c '{"function": "queryPersonInfo","Args":["01"]}'
+    peer chaincode query -C  ${CHANNEL_NAME1} -n ${CHAINCODE_NAME1} -c '{"Args":["queryStudent", "2017331014"]}'
+
 
     echo " -- : Done : --"
     echo ""
@@ -851,13 +863,14 @@ chaincodeQuery() {
 }
 hello() {
 
-    echo "------------------------new invokation-------------------"
-      setEnvForBdbank
-     peer chaincode invoke -o localhost:7050 \
+     echo "------------------------new invokation-------------------"
+         setEnvForBdbank
+
+    peer chaincode invoke -C ${CHANNEL_NAME1} -n ${CHAINCODE_NAME1} \ peer chaincode invoke -o localhost:7050 \
         --ordererTLSHostnameOverride orderer.example.com \
         --tls ${CORE_PEER_TLS_ENABLED} \
         --cafile ${ORDERER_CA} \
-        -C ${CHANNEL_NAME} -n ${CHAINCODE_NAME} \
+        -C ${CHANNEL_NAME2} -n ${CHAINCODE_NAME2} \
         --peerAddresses localhost:1050 \
         --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK} \
         --peerAddresses localhost:2050 \
@@ -868,7 +881,8 @@ hello() {
         --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_DBBANK} \
         --peerAddresses localhost:5050 \
         --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_KRISHIBANK} \
-        -c '{"function": "UpdatePersonInfo","Args":["01","Ashraful","Islam","Shanto"]}'
+        -c '{"function":"addPersonInfo","Args":["03","Rahim","Dhaka","approved"]}'
+
 
     echo " -- : Done : --"
     echo ""
@@ -899,6 +913,6 @@ chaincodeInvoke
 sleep 5
 chaincodeInvoke1
 sleep 5
-# chaincodeQuery
+chaincodeQuery
 # sleep 5
 # hello
