@@ -37,5 +37,13 @@ source createChannel.sh
 echo "==============================Channel Generation Successfull======================================"
 sleep 5
 
+echo ""
+
+echo "=======================================Chaincode Lifecycle============================"
+
+source ./chaincode_lifecycle.sh
+
+echo "=======================================Chaincode Lifecycle finished======================="
+
 
 

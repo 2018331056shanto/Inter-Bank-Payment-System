@@ -1,0 +1,50 @@
+[
+    {
+        "name":"abbankCollection",
+        "policy":"OR('abbankMSP.member','bdbankMSP.member')",
+        "requiredPeerCount":1,
+        "maxPeerCount":1,
+        "blockToLive":0,
+        "memberOnlyRead":true,
+        "memberOnlyWrite":true
+    },
+    {
+        "name":"bdbankCollection",
+        "policy":"OR('bdbankMSP.member')",
+        "requiredPeerCount":0,
+        "maxPeerCount":1,
+        "blockToLive":0,
+        "memberOnlyRead":true,
+        "memberOnlyWrite":true
+    },
+    {
+        "name":"dbbankCollection",
+        "policy":"OR('dbbankMSP.member','bdbankMSP.member')",
+        "requiredPeerCount":1,
+        "maxPeerCount":1,
+        "blockToLive":0,
+        "memberOnlyRead":true,
+        "memberOnlyWrite":true
+    },
+    {
+        "name":"islamibankCollection",
+        "policy":"OR('islamibankMSP.member','bdbankMSP.member')",
+        "requiredPeerCount":1,
+        "maxPeerCount":1,
+        "blockToLive":0,
+        "memberOnlyRead":true,
+        "memberOnlyWrite":true
+    },
+    {
+        "name":"krishibankCollection",
+        "policy":"OR('krishibankMSP.member','bdbankMSP.member')",
+        "requiredPeerCount":1,
+        "maxPeerCount":1,
+        "blockToLive":0,
+        "memberOnlyRead":true,
+        "memberOnlyWrite":true
+    }
+]
+
+
+

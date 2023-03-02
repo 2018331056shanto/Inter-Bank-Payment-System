@@ -278,6 +278,12 @@ echo "============================ Generated ${CHANNEL_SEVEN_NAME}==============
 
 echo " "
 
+echo "========== Generating Anchor Peer Update For BDBank =========="
+echo ""
+
+configtxgen -profile ${CHANNEL_SEVEN_PROFILE} -configPath ./configtx/ -outputAnchorPeersUpdate ./channel-artifacts/bdbankAnchor_${CHANNEL_SEVEN_NAME}.tx -channelID ${CHANNEL_SEVEN_NAME}  -asOrg bdbank
+echo "========== Anchor Peer Update For BDBank Sucessful =========="
+echo ""
 
 echo "========== Generating Anchor Peer Update For ABBank =========="
 echo ""
@@ -304,6 +310,12 @@ echo "============================ Generated ${CHANNEL_EIGHT_NAME}==============
 
 echo " "
 
+echo "========== Generating Anchor Peer Update For BDBank =========="
+echo ""
+
+configtxgen -profile ${CHANNEL_EIGHT_PROFILE} -configPath ./configtx/ -outputAnchorPeersUpdate ./channel-artifacts/bdbankAnchor_${CHANNEL_EIGHT_NAME}.tx -channelID ${CHANNEL_EIGHT_NAME}  -asOrg bdbank
+echo "========== Anchor Peer Update For BDBank Sucessful =========="
+echo ""
 
 echo "========== Generating Anchor Peer Update For KrishiBank =========="
 echo ""
