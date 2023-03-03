@@ -1,11 +1,12 @@
 package main
 
 import (
+	"strconv"
 	"encoding/json"
 	"fmt"
 	"time"
 	"github.com/golang/protobuf/ptypes"
-	"github.com/darrylwest/go-unique/src/unique"
+	// "github.com/darrylwest/go-unique/src/unique"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 
@@ -20,7 +21,7 @@ type Account struct{
 	DocType  	string 		`json:"docType"`
 	Bank		string		`json:"bank"`
 	Amount		int			`json:"amount:`
-	// UpdateTime	time.Time	`json:"updateTime` 
+	UpdateTime	string	`json:"updateTime` 
 }
 type Transaction struct{
 	DocType  	string 		`json:"docType"`
@@ -120,9 +121,13 @@ func (t *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) 
 // 	transaction:=Tra
 // }
 
-func(t *SmartContract) MakeTransaction(ctx contractapi.TransactionContextInterface,bank string,amount int,from string,to string) error{
+func(t *SmartContract) MakeTransaction(ctx contractapi.TransactionContextInterface,bank string,amount1 string,from string,to string,txid string) error{
 	
-	uuid:=unique.CreateUUID()
+	amount,err:=strconv.Atoi(amount1)
+	if err!=nil{
+		return fmt.Errorf(err.Error())
+	}
+	// uuid:=unique.CreateUUID()
 	assetType:="transaction"
 	queryString:=fmt.Sprintf("{\"selector\":{\"docType\":\"%s\", \"id\":\"%s\"}}", assetType, bank)
 
@@ -134,7 +139,9 @@ func(t *SmartContract) MakeTransaction(ctx contractapi.TransactionContextInterfa
 	transaction:=Transaction{
 		Bank: bank,
 		Amount: amount,
-		TXID: uuid,
+		TXID: txid,
+		From: from,
+		To: to,
 		// CreateTime: time.Unix(txTimestamp.Seconds,time.Hour.Microseconds()).UTC(),
 		DocType: "transaction",
 	}
@@ -142,13 +149,13 @@ func(t *SmartContract) MakeTransaction(ctx contractapi.TransactionContextInterfa
 	transactionAsBytes,err:=json.Marshal(transaction)
 
 	if err!=nil{
-		return fmt.Errorf("error from 2nd make tx")
+		return fmt.Errorf(err.Error())
 	}
 
 	err1:=ctx.GetStub().PutState(queryString,transactionAsBytes)
 
 	if err1!=nil{
-		return fmt.Errorf("error from 3rd make tx")
+		return fmt.Errorf(err.Error())
 	}
 	return nil
 	
@@ -170,9 +177,9 @@ func (t *SmartContract) DeleteTransaction(ctx contractapi.TransactionContextInte
 
 
 
-func (t *SmartContract) QueryAccount(ctx contractapi.TransactionContextInterface,bank string,whichAsset string)(*Account,error){
+func (t *SmartContract) QueryAccount(ctx contractapi.TransactionContextInterface,bank string)(*Account,error){
 
-	assetType:=whichAsset
+	assetType:="account"
 	queryString:=fmt.Sprintf("{\"selector\":{\"docType\":\"%s\", \"id\":\"%s\"}}", assetType, bank)
 
 	accountAsBytes,err:=ctx.GetStub().GetState(queryString)
@@ -188,6 +195,25 @@ func (t *SmartContract) QueryAccount(ctx contractapi.TransactionContextInterface
 	
 
 }
+func (t *SmartContract) QueryTransaction(ctx contractapi.TransactionContextInterface,bank string)(*Transaction,error){
+
+	assetType:="transaction"
+	queryString:=fmt.Sprintf("{\"selector\":{\"docType\":\"%s\", \"id\":\"%s\"}}", assetType, bank)
+
+	transactionAsBytes,err:=ctx.GetStub().GetState(queryString)
+
+	if err!=nil{
+		return nil,fmt.Errorf(err.Error())
+	}
+
+	transaction:=new(Transaction)
+	_=json.Unmarshal(transactionAsBytes,transaction)
+	
+	return transaction,nil
+	
+
+}
+
 
 func (t *SmartContract) ManipulateAccount(ctx contractapi.TransactionContextInterface,bank string,isAdd bool,amount int)(error){
 

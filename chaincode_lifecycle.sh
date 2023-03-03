@@ -881,17 +881,34 @@ chaincodeInvoke1(){
     echo ""
 }
 
+maketransaction(){
+
+    setEnvForAbbank
+    peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com \
+    --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} -C ${CHANNEL_NAME7} -n ${CHAINCODE_NAME3} \
+    --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK} \
+    --peerAddresses localhost:2050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ABBANK} \
+    --peerAddresses localhost:5050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_KRISHIBANK} \
+    -c  '{"Args":["makeTransaction", "abbank","140040","abbank","krishibank","323fhsdsa"]}'
+
+}
+
 chaincodeQuery() {
 
     echo "-------------------- Chaincode Query --------------------"
     setEnvForBdbank
 
-    peer chaincode query -C  ${CHANNEL_NAME1} -n ${CHAINCODE_NAME1} -c '{"Args":["queryAccount", "abbank","account"]}'
+    peer chaincode query -C  ${CHANNEL_NAME1} -n ${CHAINCODE_NAME1} -c '{"Args":["queryAccount", "abbank"]}'
 
 
     echo " -- : Done : --"
     echo ""
     
+}
+chaincodeQuery1(){
+    setEnvForAbbank
+    peer chaincode query -C  ${CHANNEL_NAME7} -n ${CHAINCODE_NAME3} -c  '{"Args":["getTransactionHistory", "abbank"]}'
+
 
 }
 hello() {
@@ -923,29 +940,33 @@ hello() {
 
 
 
-packageChaincode
-installChaincode
-queryInstalledChaincode
-approveChaincodeByBDbank
-checkCommitReadynessForBDbank
-approveChaincodeByABbank
-checkCommitReadynessForABbank
-approveChaincodeByDBbank
-checkCommitReadynessForDBbank
-approveChaincodeByIslamibank
-checkCommitReadynessForIslamibank
-approveChaincodeByKrishibank
-checkCommitReadynessForKrishibank
-commitChaincode
-queryCommittedChaincode
-getInstalledChaincode
-queryApprovedChaincode
-initChaincode
-sleep 5
-chaincodeInvoke
-sleep 5
-chaincodeInvoke1
-sleep 5
-chaincodeQuery
+# packageChaincode
+# installChaincode
+# queryInstalledChaincode
+# approveChaincodeByBDbank
+# checkCommitReadynessForBDbank
+# approveChaincodeByABbank
+# checkCommitReadynessForABbank
+# approveChaincodeByDBbank
+# checkCommitReadynessForDBbank
+# approveChaincodeByIslamibank
+# checkCommitReadynessForIslamibank
+# approveChaincodeByKrishibank
+# checkCommitReadynessForKrishibank
+# commitChaincode
+# queryCommittedChaincode
+# getInstalledChaincode
+# queryApprovedChaincode
+# initChaincode
+# sleep 5
+# chaincodeInvoke
+# sleep 5
+# chaincodeInvoke1
+# sleep 5
+# chaincodeQuery
 # sleep 5
 # hello
+# chaincodeQuery
+maketransaction
+sleep 4
+chaincodeQuery1
