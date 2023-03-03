@@ -886,7 +886,7 @@ chaincodeQuery() {
     echo "-------------------- Chaincode Query --------------------"
     setEnvForBdbank
 
-    peer chaincode query -C  ${CHANNEL_NAME1} -n ${CHAINCODE_NAME1} -c '{"Args":["queryStudent", "2017331014"]}'
+    peer chaincode query -C  ${CHANNEL_NAME1} -n ${CHAINCODE_NAME1} -c '{"Args":["queryAccount", "abbank","account"]}'
 
 
     echo " -- : Done : --"

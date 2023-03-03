@@ -37,25 +37,28 @@ const invokeTransaction=async(fcn,args,user,org,transientData)=>{
         const gateway=new Gateway()
         await gateway.connect(ccp,connectionOptions)
         console.log("connection")
-        const channelName="abbank-dbbank-channel"
+        const channelName="abbank-krishibank-channel"
         const chaincodeName='bilateral_cc'
         
         const network=await gateway.getNetwork(channelName)
         const contract=network.getContract(chaincodeName)
         // contract.
-        contract.createTransaction().setTransient().submit()
+        // contract.createTransaction().setTransient().submit()
         let result
         let message
         
+        
         console.log("invoking")
 
-        if(fcn==="addStudent"){
+        // if(fcn==="addStudent"){
 
-            // result=await contract.submitTransaction(fcn,args[0],args[1],args[2],args[3],args[4],args[5],args[6],args[7],args[8])
-            result=await contract.evaluateTransaction("queryStudent","2018331056")
-            console.log(result)
+            result=await contract.submitTransaction("makeTransaction","abbank",50000,"abbank","krishibank")
+            // result=await contract.submitTransaction("deleteStudent","2018331056")
+            
+            // result=await contract.evaluateTransaction("getStudentHistory","2018331056")
+            console.log(JSON.parse(result.toString()))
             message = `Successfully added the student with key ${args[1]}`
-        }
+        // }
         gateway.disconnect()
         if(!result.toString()){
             result="Success"
@@ -63,7 +66,7 @@ const invokeTransaction=async(fcn,args,user,org,transientData)=>{
 
         let response = {
             message: message,
-            result:result.toString()
+            result:JSON.parse(result.toString())
         }
 
         return response;

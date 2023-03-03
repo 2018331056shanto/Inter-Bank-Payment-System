@@ -134,8 +134,8 @@ app.post("/register",async (req,res)=>{
 
 app.get('/invoke',async(req,res)=>{
 
-    let fcn="addStudent"
-    let args=["Shanto","2018331056","CSE","Applied Science","2018","3.40","B+","YES","www.hlahlsdsdlsa"]
+    let fcn="manipulateAccount"
+    let args=["Shanto","2018331056","CSE","Science","2018","3.40","A+","YES","www.hlahlsdsdlsa"]
     let transient="hdladhlsdhadsda"
 
     

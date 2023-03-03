@@ -9,13 +9,14 @@ const token=localStorage.getItem("token")
 const netRef=require("../NetworkRef.json")
 const chaicodeName=netRef.chainCodeMapping.bilateral
 
-    const decode=jwt.verify(token,"thisismysecret")
-    const requestingBank=decode.orgName
-    console.log(decode)
+ 
 
 
 const getTransactions=async(req,res,callback)=>{
 
+    const decode=jwt.verify(token,"thisismysecret")
+    const requestingBank=decode.orgName
+    console.log(decode)
     let bankName=requestingBank
     let response={}
     let channels=[]

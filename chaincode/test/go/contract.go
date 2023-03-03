@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 	"github.com/golang/protobuf/ptypes"
-	// "github.com/darrylwest/go-unique/src/unique"
+	"github.com/darrylwest/go-unique/src/unique"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 
@@ -22,22 +22,22 @@ type Account struct{
 	Amount		int			`json:"amount:`
 	// UpdateTime	time.Time	`json:"updateTime` 
 }
-// type Transaction struct{
-// 	DocType  	string 		`json:"docType"`
-// 	Bank 		string		`json:"bank"`
-// 	Amount 		int			`json:"amount"`
-// 	TXID 		string		`json:"txID"`
-// 	CreateTime  time.Time	`json:"createTime"`
-// 	From 		string		`json:"from"`
-// 	To			string		`json:"to"` 
-// }
+type Transaction struct{
+	DocType  	string 		`json:"docType"`
+	Bank 		string		`json:"bank"`
+	Amount 		int			`json:"amount"`
+	TXID 		string		`json:"txID"`
+	// CreateTime  time.Time	`json:"createTime"`
+	From 		string		`json:"from"`
+	To			string		`json:"to"` 
+}
 
-// type TransactionHistory struct{
-// 	Record		*Transaction	`json:"record"`
-// 	Timestamp	time.Time		`json:"timestamp"`
-// 	IsDelete	bool			`json:"isDelete"`
+type TransactionHistory struct{
+	Record		*Transaction	`json:"record"`
+	Timestamp	time.Time		`json:"timestamp"`
+	IsDelete	bool			`json:"isDelete"`
 
-// }
+}
 type AccountHistory struct{
 	Record  	*Account		`json:"record"`
 	Timestamp	time.Time		`json:"timestamp"`
@@ -68,31 +68,31 @@ func (t *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) 
 		{
 			Bank: "abbank",
 			Amount: 100000,
-			// UpdateTime: time.Date(2023,time.March,time.Now().Day(),time.Now().Hour(),0,0,0,time.UTC),
+			// UpdateTime:time.Time{},
 			DocType: "account",
 		},
 		{
 			Bank: "bdbank",
 			Amount: 32300000,
-			// UpdateTime:  time.Date(2023,time.March,time.Now().Day(),time.Now().Hour(),0,0,0,time.UTC),
+			// UpdateTime:time.Time{},
 			DocType: "account",
 		},
 		{
 			Bank: "dbbank",
 			Amount: 3200000,
-			// UpdateTime:  time.Date(2023,time.March,time.Now().Day(),time.Now().Hour(),0,0,0,time.UTC),
+			// UpdateTime:time.Time{},
 			DocType: "account",
 		},
 		{
 			Bank: "islamibank",
 			Amount: 3100000,
-			// UpdateTime:  time.Date(2023,time.March,time.Now().Day(),time.Now().Hour(),0,0,0,time.UTC),
+			// UpdateTime: time.Time{},
 			DocType: "account",
 		},
 		{
 			Bank: "krishibank",
 			Amount: 4500000,
-			// UpdateTime: time.Date(2023,time.March,time.Now().Day(),time.Now().Hour(),0,0,0,time.UTC),
+			// UpdateTime: time.Time{},
 			DocType: "account",
 		},
 
@@ -100,12 +100,12 @@ func (t *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) 
 
 
 	for _,bankAccount:=range bankAccounts{
-		// assetType:="account"
-		// queryString:=fmt.Sprintf("{\"selector\":{\"docType\":\"%s\", \"id\":\"%s\"}}", assetType, bankAccount.Bank)
+		assetType:="account"
+		queryString:=fmt.Sprintf("{\"selector\":{\"docType\":\"%s\", \"id\":\"%s\"}}", assetType, bankAccount.Bank)
 	
 		bankAsBytes,_:=json.Marshal(bankAccount)
 
-		err:=ctx.GetStub().PutState(bankAccount.Bank,bankAsBytes)
+		err:=ctx.GetStub().PutState(queryString,bankAsBytes)
 
 		if err!=nil{
 			return fmt.Errorf(err.Error())
@@ -115,53 +115,58 @@ func (t *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) 
 	return nil
 }
 
-// func(t *SmartContract) MakeTransaction(ctx contractapi.TransactionContextInterface,bank string,amount int,from string,to string) error{
-	
-// 	uuid:=unique.CreateUUID()
-// 	assetType:="transaction"
-// 	queryString:=fmt.Sprintf("{\"selector\":{\"docType\":\"%s\", \"id\":\"%s\"}}", assetType, bank)
+// func (t *SmartContract) InitLedgerTx(ctx contractapi.TransactionContextInterface)error{
 
-// 	txTimestamp,err:=ctx.GetStub().GetTxTimestamp()
-
-// 	if err!=nil{
-// 		return fmt.Errorf(err.Error())
-// 	}
-// 	transaction:=Transaction{
-// 		Bank: bank,
-// 		Amount: amount,
-// 		TXID: uuid,
-// 		CreateTime: time.Unix(txTimestamp.Seconds,time.Hour.Microseconds()).UTC(),
-// 		DocType: "transaction",
-// 	}
-
-// 	transactionAsBytes,err:=json.Marshal(transaction)
-
-// 	if err!=nil{
-// 		return fmt.Errorf(err.Error())
-// 	}
-
-// 	err1:=ctx.GetStub().PutState(queryString,transactionAsBytes)
-
-// 	if err1!=nil{
-// 		return fmt.Errorf(err.Error())
-// 	}
-// 	return nil
-	
-	
+// 	transaction:=Tra
 // }
 
-// func (t *SmartContract) DeleteTransaction(ctx contractapi.TransactionContextInterface,bank string) error{
+func(t *SmartContract) MakeTransaction(ctx contractapi.TransactionContextInterface,bank string,amount int,from string,to string) error{
+	
+	uuid:=unique.CreateUUID()
+	assetType:="transaction"
+	queryString:=fmt.Sprintf("{\"selector\":{\"docType\":\"%s\", \"id\":\"%s\"}}", assetType, bank)
 
-// 	assetType:="transaction"
-// 	queryString:=fmt.Sprintf("{\"selector\":{\"docType\":\"%s\", \"id\":\"%s\"}}", assetType, bank)
+	// txTimestamp,err:=ctx.GetStub().GetTxTimestamp()
 
-// 	err:=ctx.GetStub().DelState(queryString)
-// 	if err!=nil{
-// 		return fmt.Errorf(err.Error())
-// 	}
+	// if err!=nil{
+	// 	return fmt.Errorf("error from 1st make tx")
+	// }
+	transaction:=Transaction{
+		Bank: bank,
+		Amount: amount,
+		TXID: uuid,
+		// CreateTime: time.Unix(txTimestamp.Seconds,time.Hour.Microseconds()).UTC(),
+		DocType: "transaction",
+	}
 
-// 	return nil
-// }
+	transactionAsBytes,err:=json.Marshal(transaction)
+
+	if err!=nil{
+		return fmt.Errorf("error from 2nd make tx")
+	}
+
+	err1:=ctx.GetStub().PutState(queryString,transactionAsBytes)
+
+	if err1!=nil{
+		return fmt.Errorf("error from 3rd make tx")
+	}
+	return nil
+	
+	
+}
+
+func (t *SmartContract) DeleteTransaction(ctx contractapi.TransactionContextInterface,bank string) error{
+
+	assetType:="transaction"
+	queryString:=fmt.Sprintf("{\"selector\":{\"docType\":\"%s\", \"id\":\"%s\"}}", assetType, bank)
+
+	err:=ctx.GetStub().DelState(queryString)
+	if err!=nil{
+		return fmt.Errorf(err.Error())
+	}
+
+	return nil
+}
 
 
 
@@ -285,56 +290,56 @@ func (t *SmartContract) GetAccountHistory(ctx contractapi.TransactionContextInte
 
 }
 
-// func (t *SmartContract) GetTransactionHistory(ctx contractapi.TransactionContextInterface,bank string)([]TransactionHistory,error){
+func (t *SmartContract) GetTransactionHistory(ctx contractapi.TransactionContextInterface,bank string)([]TransactionHistory,error){
 
-// 	assetType:="transaction"
-// 	queryString:=fmt.Sprintf("{\"selector\":{\"docType\":\"%s\", \"id\":\"%s\"}}", assetType, bank)
+	assetType:="transaction"
+	queryString:=fmt.Sprintf("{\"selector\":{\"docType\":\"%s\", \"id\":\"%s\"}}", assetType, bank)
 
-// 	resultsIterator,err:=ctx.GetStub().GetHistoryForKey(queryString)
+	resultsIterator,err:=ctx.GetStub().GetHistoryForKey(queryString)
 
-// 	if err!=nil{
-// 		return nil,fmt.Errorf(err.Error())
-// 	}
+	if err!=nil{
+		return nil,fmt.Errorf(err.Error())
+	}
 
-// 	defer resultsIterator.Close()
+	defer resultsIterator.Close()
 	
-// 	var records []TransactionHistory
+	var records []TransactionHistory
 
 
-// 		for resultsIterator.HasNext(){
+		for resultsIterator.HasNext(){
 
-// 			response,err1:=resultsIterator.Next()
+			response,err1:=resultsIterator.Next()
 
-// 			if err1!=nil{
-// 				return nil,fmt.Errorf(err1.Error())
-// 			}
-// 			var transaction Transaction
+			if err1!=nil{
+				return nil,fmt.Errorf(err1.Error())
+			}
+			var transaction Transaction
 
-// 			if len(response.Value)>0{
-// 				err2:=json.Unmarshal(response.Value,&transaction)
+			if len(response.Value)>0{
+				err2:=json.Unmarshal(response.Value,&transaction)
 
-// 				if err2!=nil{
-// 					return nil,fmt.Errorf(err2.Error())
-// 				}
-// 			}else{
+				if err2!=nil{
+					return nil,fmt.Errorf(err2.Error())
+				}
+			}else{
 
-// 				transaction=Transaction{
-// 					Bank: bank,
-// 					}
-// 				}	
-// 			timestamp,err3:=	ptypes.Timestamp(response.Timestamp)
+				transaction=Transaction{
+					Bank: bank,
+					}
+				}	
+			timestamp,err3:=	ptypes.Timestamp(response.Timestamp)
 			
-// 			if err3 != nil {
-// 				return nil, err
-// 			}
-// 			record:=TransactionHistory{
-// 				Timestamp: timestamp,
-// 				Record: &transaction,
-// 				IsDelete: response.IsDelete,
-// 			}
-// 			records=append(records, record)
-// 		}
-// 	return records,nil
+			if err3 != nil {
+				return nil, err
+			}
+			record:=TransactionHistory{
+				Timestamp: timestamp,
+				Record: &transaction,
+				IsDelete: response.IsDelete,
+			}
+			records=append(records, record)
+		}
+	return records,nil
 
 
-// }
+}
