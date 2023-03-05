@@ -889,7 +889,7 @@ maketransaction(){
     --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK} \
     --peerAddresses localhost:2050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ABBANK} \
     --peerAddresses localhost:5050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_KRISHIBANK} \
-    -c  '{"Args":["makeTransaction", "abbank","140040","abbank","krishibank","323fhsdsa"]}'
+    -c  '{"Args":["makeTransaction", "abbank","140040","abbank","krishibank","323fhsdsa","dasld"]}'
 
 }
 
@@ -940,33 +940,33 @@ hello() {
 
 
 
-# packageChaincode
-# installChaincode
-# queryInstalledChaincode
-# approveChaincodeByBDbank
-# checkCommitReadynessForBDbank
-# approveChaincodeByABbank
-# checkCommitReadynessForABbank
-# approveChaincodeByDBbank
-# checkCommitReadynessForDBbank
-# approveChaincodeByIslamibank
-# checkCommitReadynessForIslamibank
-# approveChaincodeByKrishibank
-# checkCommitReadynessForKrishibank
-# commitChaincode
-# queryCommittedChaincode
-# getInstalledChaincode
-# queryApprovedChaincode
-# initChaincode
-# sleep 5
-# chaincodeInvoke
-# sleep 5
-# chaincodeInvoke1
-# sleep 5
-# chaincodeQuery
-# sleep 5
-# hello
-# chaincodeQuery
+packageChaincode
+installChaincode
+queryInstalledChaincode
+approveChaincodeByBDbank
+checkCommitReadynessForBDbank
+approveChaincodeByABbank
+checkCommitReadynessForABbank
+approveChaincodeByDBbank
+checkCommitReadynessForDBbank
+approveChaincodeByIslamibank
+checkCommitReadynessForIslamibank
+approveChaincodeByKrishibank
+checkCommitReadynessForKrishibank
+commitChaincode
+queryCommittedChaincode
+getInstalledChaincode
+queryApprovedChaincode
+initChaincode
+sleep 5
+chaincodeInvoke
+sleep 5
+chaincodeInvoke1
+sleep 5
+chaincodeQuery
+sleep 5
+hello
+chaincodeQuery
 maketransaction
 sleep 4
 chaincodeQuery1

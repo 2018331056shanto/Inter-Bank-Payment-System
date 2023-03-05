@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
@@ -9,6 +9,12 @@ import History from './components/History/History'
 import Txhistory from './components/TxHistory/Txhistory'
 import Txrequest from './components/Txrequest/Txrequest'
 function App() {
+
+  let [sign,setSign]=useState({})
+  const signIn=(e)=>{
+    console.log(e.org)
+    setSign(e)
+  }
   return (
 
     <Router>
@@ -19,7 +25,7 @@ function App() {
             
         <div className="auth-wrapper">
         <div className="auth-inner">  
-              <Login />
+              <Login signin={signIn} />
             </div>
             </div>
             
@@ -46,7 +52,12 @@ function App() {
               </div>
               </div>
               } />
-              <Route exact path='/api/home' element={<Home/>}/>
+              <Route exact path='/api/home' element={sign.token!=null?<Home sign={sign.org}/>:<div className="auth-wrapper">
+        <div className="auth-inner">
+              <Login />
+              
+              </div>
+              </div>}/>
               <Route exact path='/api/txhistory' element={<History/>}/>
               <Route exact path='/api/mkreq' element={<Txrequest/>}/>
               <Route exact path='/api/txhistory/:id' element={<Txhistory/>}/>

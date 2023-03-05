@@ -17,12 +17,15 @@ const invoke=require('../api/server/utils/invoke')
 const {LocalStorage} = require('node-localstorage');
 const localStorage = new LocalStorage('./local-storage');
 
+localStorage.clear()
 const corsOptions = {
     credentials: true,
     ///..other options
   };
   
 logger.level = "debug"
+
+
 
 app.use("/api",bankRouter)
 app.use(cookieParser());
@@ -43,15 +46,9 @@ const getErrorMessage=(field)=> {
 }
 
 
-
-app.get("/data",(req,res)=>{
-
-    res.cookie("jwttoken","hello how are you");
-
-    console.log(req.cookies)
-    res.send({time:new Date()})
+app.get('/logout',(req,res)=>{
+    localStorage.clear()
 })
-
 app.post("/login", async (req,res)=>{
 
     const {user,org}=req.body
@@ -61,12 +58,7 @@ app.post("/login", async (req,res)=>{
         return 
     }
 
-    // if((org!="abbank"||org!="bdbank"||org!="dbbank"||org!="islamibank"||org!="krishibank")){
-    //     console.log("yy")
 
-    //     res.json(getErrorMessage('\'orgname\''))
-    //     return 
-    // }
 
     const token =  jwt.sign({
         exp: Math.floor(Date.now() / 1000) + 36000,
@@ -74,22 +66,20 @@ app.post("/login", async (req,res)=>{
         orgName: org
     }, app.get('secret'));
 
-    // console.log(token)
+
     let isUserRegistered=await helper.isUserRegistered(user,org)
-    // console.log(`user regiserd:  ${isUserRegistered}`)
+
     if(isUserRegistered){
       
-    
+
         const maxAge = 1 * 24 * 60 * 60;
 
         localStorage.setItem("token",token)
-        // console.log("hello is anybody in there")
-        // res.cookie("jwttoken","hello how are you");
         res.send({success: true, message: { token: token } });
-        //  console.log("zz")
     }
     else{
-        res.json({ success: false, message: `User with username ${user} is not registered with ${org}, Please register first.` });
+
+         res.send({ success: false, message: `User with username ${user} is not registered with ${org}, Please register first.`,token:null });
     }
     
 })
@@ -104,14 +94,8 @@ app.post("/register",async (req,res)=>{
         return res.json(getErrorMessage('\'username\''))
         
     }
-    // if(!org||(org!="abbank"||org!="bdbank"||org!="dbbank"||org!="islamibank"||org!="krishibank")){
-    //     return res.json(getErrorMessage('\'orgname\''))
-    // }
-
-    helper.getCCP(org)
-
+ 
     let response=await helper.registerUser(user,org) 
-    // console.log(response)
     logger.debug('-- returned from registering the username %s for organization %s', user, org);
     if (response && typeof response !== 'string') {
         logger.debug('Successfully registered the username %s for organization %s', user, org);
@@ -121,7 +105,6 @@ app.post("/register",async (req,res)=>{
         return res.json({ success: false });
     }
 
-    // console.log(user+": "+org)
 })
 
 

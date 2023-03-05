@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from './Home.module.css'
 import Navbar from "../NavbarLogin/Navbar/Navbar";
 import Card from "../Card/Card";
 import LineChart from "../Linechart/LineChart";
 import List from "../List/List";
-
+import { GET } from "../../api/api";
 
 
 const Home=(props)=>{
+
+    let [Data,setData]=useState([])
+
+    const getData=async()=>{
+          console.log(props.sign)
+        const result=await GET(`/api/bank/+${props.sign}`)
+        console.log(result)
+        setData(result)
+    }
+    useEffect(()=>{
+
+      getData()
+
+    },[])
 
     let cur=new Date()
     const header=[

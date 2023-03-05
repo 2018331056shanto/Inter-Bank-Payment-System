@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { POST } from '../api/api';
 
 import Nav from './NavbarLogin/NavbarLogin';
+import { useNavigate } from 'react-router-dom';
+
 const Login=(props)=> {
 
 
@@ -11,14 +13,15 @@ const Login=(props)=> {
   let [org,setOrg]=useState("")
   let [res,setRes]=useState([])
 
+  const navigate=useNavigate()
   const onChangeUser=(e)=>{
 
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setUser(e.target.value)
   }
   const onChangeSelect=(e)=>{
 
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setOrg(e.target.value)
   }
 
@@ -28,8 +31,21 @@ const Login=(props)=> {
     try {
       const response =  await POST("/login", { user: user, org: org });
       console.log(response.data.message);
-      console.log(localStorage.getItem('token'))
+      console.log(response.data.token)
+      // console.log(localStorage.getItem('token'))
+      if(response.data.token==null){
+        // console.log("in if ")
+        navigate("/sign-in")
+      }
+      else{
+        // console.log("in else funct")
+        localStorage.setItem("token",response.data.token)
+
+      props.signin({org:org,token:response.data.token})
       setRes(response);
+      navigate("/api/home")
+      }
+    
     } catch (error) {
       console.log(error);
     }
