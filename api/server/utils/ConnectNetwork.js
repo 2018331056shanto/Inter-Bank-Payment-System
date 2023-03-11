@@ -3,7 +3,7 @@ const helper=require('./helper')
 
 
 
-module.exports=connectNetwork=async(org,user,channelName,chaincodeName)=>{
+const connectNetwork=async(org,user,channelName,chaincodeName)=>{
 
     try{
         
@@ -30,7 +30,7 @@ module.exports=connectNetwork=async(org,user,channelName,chaincodeName)=>{
     const gateway=new Gateway()
     await gateway.connect(ccp,connectionOptions)
 
-    const network=await gateway.getNetwork(chaincodeName)
+    const network=await gateway.getNetwork(channelName)
     const contract=await network.getContract(chaincodeName)
 
     return contract
@@ -39,4 +39,7 @@ catch(err){
     return err
 }
 
+}
+module.exports={
+    connectNetwork:connectNetwork
 }

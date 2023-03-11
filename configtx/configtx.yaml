@@ -247,7 +247,6 @@ Channel: &ChannelDefaults
   Capabilities:
     <<: *ChannelCapabilities
 
-
 Profiles: 
   OrdererGenesis:
     <<: *ChannelDefaults

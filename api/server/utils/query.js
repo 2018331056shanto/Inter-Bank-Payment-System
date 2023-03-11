@@ -43,6 +43,7 @@ const chaincodQuery=async(fcn,channelName,chaincodeName,args,user,org)=>{
             result:JSON.parse(result.toString())
         }
         
+        
         return response
 
     }

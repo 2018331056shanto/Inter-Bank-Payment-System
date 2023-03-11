@@ -3,20 +3,30 @@
     position: absolute;
     top: 58px;
     width: 150px;
+    height: 150px;
     transform: translateX(-40%);
-    background-color: white;
+    /* background-color: white; */
     border-radius: 5px;
+    background-color: rgb(146, 161, 174);
+
 
     /* margin-right: ; */
 }
+.div1{
+    margin:30px 0px 0px 0px
+    /* background-color: gold; */
+}
 .sp1{
  
-    height: 30px;
+    
+ 
+    height: 100px;
     width: 30px;
     margin-right: 30px;
+    /* background: green; */
 
 }
- img{
+ .img{
     width: 30px;
     height: 30px;
     object-fit: cover;
@@ -25,4 +35,5 @@
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     letter-spacing: 1px;
     font-weight: 700;
+    margin-bottom: 20px;
 }

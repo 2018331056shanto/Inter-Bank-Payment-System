@@ -3,9 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"strconv"
 	"time"
-
 	"github.com/golang/protobuf/ptypes"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
@@ -18,17 +16,16 @@ type Account struct {
 	DocType    string `json:"docType"`
 	Bank       string `json:"bank"`
 	Amount     int    `json:"amount:`
-	UpdateTime string `json:"updateTime`
 }
 type Transaction struct {
 	DocType    string `json:"docType"`
 	Bank       string `json:"bank"`
 	Amount     int    `json:"amount"`
-	TXID       string `json:"txID"`
-	CreateTime string `json:"createTime"`
 	From       string `json:"from"`
 	To         string `json:"to"`
 	Status     bool   `json:"status"`
+	Ref		   string `json:"ref"`
+	TxID 	   string `json:"txID"`
 }
 
 type TransactionHistory struct {
@@ -108,24 +105,23 @@ func (t *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) 
 	return nil
 }
 
-func (t *SmartContract) MakeTransaction(ctx contractapi.TransactionContextInterface, bank string, amount1 string, from string, to string, txid string, createTime string) error {
+func (t *SmartContract) MakeTransaction(ctx contractapi.TransactionContextInterface, bank string, amount int, from string, to string, ref string,txid string) error {
 
-	amount, err := strconv.Atoi(amount1)
-	if err != nil {
-		return fmt.Errorf(err.Error())
-	}
+	
+	
 	assetType := "transaction"
 	queryString := fmt.Sprintf("{\"selector\":{\"docType\":\"%s\", \"id\":\"%s\"}}", assetType, bank)
 
 	transaction := Transaction{
 		Bank:       bank,
 		Amount:     amount,
-		TXID:       txid,
 		From:       from,
 		To:         to,
 		DocType:    "transaction",
-		CreateTime: createTime,
 		Status:     false,
+		Ref: 		ref,
+		TxID: 		txid,
+		
 	}
 
 	transactionAsBytes, err := json.Marshal(transaction)
@@ -226,11 +222,11 @@ func (t *SmartContract) UpdateStatus(ctx contractapi.TransactionContextInterface
 
 }
 
-func (t *SmartContract) ManipulateAccount(ctx contractapi.TransactionContextInterface, bank string, isAdd bool, amount int) error {
+func (t *SmartContract) ManipulateAccount(ctx contractapi.TransactionContextInterface, bank string, isAdd bool, amount int) (error) {
 
 	assetType := "account"
 	queryString := fmt.Sprintf("{\"selector\":{\"docType\":\"%s\", \"id\":\"%s\"}}", assetType, bank)
-	accountAsBytes, err := ctx.GetStub().GetState(queryString)
+	account,err := t.QueryAccount(ctx,bank)
 
 	if err != nil {
 		return fmt.Errorf(err.Error())
@@ -242,9 +238,6 @@ func (t *SmartContract) ManipulateAccount(ctx contractapi.TransactionContextInte
 	// 	return fmt.Errorf(err1.Error())
 	// }
 
-	account := new(Account)
-
-	_ = json.Unmarshal(accountAsBytes, account)
 
 	if isAdd == true {
 
@@ -252,7 +245,12 @@ func (t *SmartContract) ManipulateAccount(ctx contractapi.TransactionContextInte
 		// account.UpdateTime=time.Unix(txTimestamp.Seconds,int64(txTimestamp.Nanos)).UTC()
 
 	} else {
-		account.Amount = account.Amount - amount
+		if(account.Amount - amount>0){
+			account.Amount=account.Amount-amount
+		}else{
+			return fmt.Errorf("Can't transact")
+		}
+		
 	}
 
 	accountBytes, err2 := json.Marshal(account)
@@ -355,12 +353,7 @@ func (t *SmartContract) GetTransactionHistory(ctx contractapi.TransactionContext
 			if err2 != nil {
 				return nil, fmt.Errorf(err2.Error())
 			}
-		} else {
-
-			transaction = Transaction{
-				Bank: bank,
-			}
-		}
+		} 
 		timestamp, err3 := ptypes.Timestamp(response.Timestamp)
 
 		if err3 != nil {

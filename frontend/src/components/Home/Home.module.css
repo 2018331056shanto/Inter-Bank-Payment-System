@@ -97,3 +97,7 @@
     font-weight: bold;
 
 }
+.info{
+    display: flex;
+    justify-content: space-evenly;
+}

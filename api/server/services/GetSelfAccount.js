@@ -1,49 +1,77 @@
-const express=require("express")
-const app=express()
-const helper=require("../utils/helper")
-const {LocalStorage} = require('node-localstorage');
-const localStorage = new LocalStorage('./local-storage');
-const jwt=require("jsonwebtoken")
-const logger=helper.getLogger("bankservice")
-const token=localStorage.getItem("token")
-const netRef=require("../NetworkRef.json")
-const chaicodeName=netRef.chainCodeMapping.bilateral
+const { Wallets, Gateway } = require('fabric-network')
+const helper=require('../utils/helper')
+const jwt=require('jsonwebtoken')
+const xx=require('../../token')
 
- 
+const selfAccount=async()=>{
 
-
-const getTransactions=async(req,res,callback)=>{
-
-    const decode=jwt.verify(token,"thisismysecret")
-    const requestingBank=decode.orgName
-    console.log(decode)
-    let bankName=requestingBank
-    let response={}
-    let channels=[]
-    let transactionlist=[]
-    let fcn="getTransactionHistory"
-    let args=[bankName]
     
-    const channelList=await helper.getChannelList("abbank")
+    const token=xx.storage()
+    var decode=jwt.verify(token,'thisismysecret')
+    const user=decode.username
+    const org=decode.orgName
+    console.log(user + org)
+    const channelName="netting-channel"
+    const chaincodeName="netting_cc"
+    const ccp=await helper.getCCP(org)
+    const walletPath=await helper.getWalletPath(org)
+    const wallet=await Wallets.newFileSystemWallet(walletPath)
+    let identity=await wallet.get(user)
+
+
+
+    if(!identity){
     
-    channelList.forEach((channelName,functioncallback)=>{
+        console.log(`An identity for the user ${user} does not exist in the wallet, so registering user`);
+        return
+    }
 
-        if(netRef.multilateralChannels.includes(channelName)){
+    const connectionOptions={
+        wallet,
+        identity:user,
+        discovery:{
+            enabled:true,
+            asLocalhost:true,
+        }       
+    }
 
-            functioncallback()
+    try{
+
+        const gateway=new Gateway()
+    await gateway.connect(ccp,connectionOptions)
+
+    const network=await gateway.getNetwork(channelName)
+    const contract=await network.getContract(chaincodeName)
+    
+        let result
+        let message
+
+        result=await contract.evaluateTransaction("queryAccount",org)
+        console.log(JSON.parse(result.toString()))
+        message = `Successfully added the student with key`
+
+        gateway.disconnect()
+        if(!result.toString()){
+            result="Success"
         }
-        else{
-            logger.debug(channelName+":",+chaicodeName+":"+fcn+":"+args)
+         let response = {
+            message: message,
+            result:JSON.parse(result.toString())
         }
-    })
-    // console.log(channelList
-    res.send("hello how are you")    
+        return response
+    }
+    catch(err){
 
+        return {err:err}
+    }
+    
+       
+
+        
+    
+    
 }
 
-
 module.exports={
-
-    getTransactions:getTransactions
-
+    selfAccount:selfAccount
 }

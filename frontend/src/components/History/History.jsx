@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Navbar from "../NavbarLogin/Navbar/Navbar";
 import style from './History.module.css'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
@@ -8,7 +8,7 @@ const History=(props)=>{
 useEffect(()=>{
 
 },[])
-const items=["ABBank","BDBank","IslamiBank","DBBank","KrishiBank"]
+const items=["ABBank","IslamiBank","DBBank","KrishiBank"]
 
 
 return(

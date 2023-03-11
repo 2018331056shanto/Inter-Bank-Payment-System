@@ -885,11 +885,22 @@ maketransaction(){
 
     setEnvForAbbank
     peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com \
-    --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} -C ${CHANNEL_NAME7} -n ${CHAINCODE_NAME3} \
+    --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} -C ${CHANNEL_NAME6} -n ${CHAINCODE_NAME3} \
     --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK} \
     --peerAddresses localhost:2050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ABBANK} \
-    --peerAddresses localhost:5050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_KRISHIBANK} \
-    -c  '{"Args":["makeTransaction", "abbank","140040","abbank","krishibank","323fhsdsa","dasld"]}'
+    --peerAddresses localhost:4050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_DBBANK} \
+    -c  '{"Args":["makeTransaction", "abbank","6600","abbank","dbbank","323fhsdsa"]}'
+
+}
+maketransaction3(){
+
+    setEnvForAbbank
+    peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com \
+    --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} -C ${CHANNEL_NAME6} -n ${CHAINCODE_NAME3} \
+    --peerAddresses localhost:1050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_BDBANK} \
+    --peerAddresses localhost:2050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ABBANK} \
+    --peerAddresses localhost:4050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_DBBANK} \
+    -c  '{"Args":["QueryTransaction", "abbankdbbank"]}'
 
 }
 
@@ -907,7 +918,7 @@ chaincodeQuery() {
 }
 chaincodeQuery1(){
     setEnvForAbbank
-    peer chaincode query -C  ${CHANNEL_NAME7} -n ${CHAINCODE_NAME3} -c  '{"Args":["getTransactionHistory", "abbank"]}'
+    peer chaincode query -C  ${CHANNEL_NAME7} -n ${CHAINCODE_NAME3} -c  '{"Args":["getTransactionHistory", "abbankdbbank"]}'
 
 
 }
@@ -938,6 +949,19 @@ hello() {
     echo ""
 }
 
+seeInstalledCC(){
+    setEnvForAbbank
+    peer chaincode list --installed -C netting-channel
+
+}
+
+nextTx(){
+    setEnvForAbbank
+    peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com \
+    --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} -C ${CHANNEL_NAME1} -n ${CHAINCODE_NAME1} \
+    --peerAddresses localhost:2050 --tlsRootCertFiles ${CORE_PEER_TLS_ROOTCERT_FILE_ABBANK} \
+    -c  '{"Args":["manipulateAccount", "abbank","false","140040"]}'
+}
 
 
 packageChaincode
@@ -965,8 +989,13 @@ chaincodeInvoke1
 sleep 5
 chaincodeQuery
 sleep 5
-hello
+# hello
 chaincodeQuery
-maketransaction
-sleep 4
-chaincodeQuery1
+# maketransaction
+# sleep 4#
+#  maketransaction3
+#  sleep 5
+# chaincodeQuery1
+
+# seeInstalledCC
+# nextTx

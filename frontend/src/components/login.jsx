@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
+import { useState,useContext } from 'react';
 import { POST } from '../api/api';
-
 import Nav from './NavbarLogin/NavbarLogin';
 import { useNavigate } from 'react-router-dom';
-
+import { userContext } from '../context/Context';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 const Login=(props)=> {
 
+  const { setLoginUser } = useContext(userContext);
 
   let [user,setUser]=useState("")
   let [org,setOrg]=useState("")
@@ -16,34 +19,61 @@ const Login=(props)=> {
   const navigate=useNavigate()
   const onChangeUser=(e)=>{
 
-    // console.log(e.target.value)
     setUser(e.target.value)
   }
   const onChangeSelect=(e)=>{
 
-    // console.log(e.target.value)
     setOrg(e.target.value)
   }
 
   const onClickHandler=async()=>{
 
-    // console.log("its submit button")
     try {
       const response =  await POST("/login", { user: user, org: org });
-      console.log(response.data.message);
-      console.log(response.data.token)
-      // console.log(localStorage.getItem('token'))
-      if(response.data.token==null){
-        // console.log("in if ")
+
+      console.log(response)
+      if(response.data.message.token==null){
+        toast.error('🦄 Error While Logging In!', {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
         navigate("/sign-in")
       }
       else{
-        // console.log("in else funct")
         localStorage.setItem("token",response.data.token)
+        localStorage.setItem("loggedUser", response.data.message.org);
+        setLoginUser(response.data.message.org)
+        if(response.status==200){
 
-      props.signin({org:org,token:response.data.token})
+          toast.success('🦄 Successfully Logged In!', {
+              position: "bottom-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              });
+  
+       }
+      
+      props.signin({token:response.data.message.token,org:response.data.message.org})
       setRes(response);
-      navigate("/api/home")
+
+      const funct=()=>{
+
+        navigate("/api/bank/home")
+      }
+
+      setTimeout( funct,2000)
+     
       }
     
     } catch (error) {
@@ -55,7 +85,6 @@ const Login=(props)=> {
     return (
       <div>
         <Nav/>
-        
         <h3>Sign In</h3>
         <div className="mb-3">
           <label>Username</label>
@@ -105,6 +134,8 @@ const Login=(props)=> {
         <p className="forgot-password text-right">
           Forgot <a href="#">password?</a>
         </p>
+        <ToastContainer />
+
        </div>
     )
   }

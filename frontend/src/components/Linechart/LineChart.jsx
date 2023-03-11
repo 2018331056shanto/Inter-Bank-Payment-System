@@ -1,22 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Line } from 'react-chartjs-2'
 import {Chart as ChartJS} from "chart.js/auto"
 import style from "./LineChart.module.css"
 const LineChart = (props) => {
-  // let data=props.data
-  // console.log(data)
+
+  let [chart,setChart]=useState([])
+
+  console.log(props.data)
+  // if(props.data.length)
+  let data=props.data.reverse()
+  if(data.length<7)
+  {
+    for(let i=0;i<7-data.length+1;i++)
+    {
+      data.push(0)
+    }
+    setChart(data)
+  }
+  else{
+    data=data.slice(0,7)
+  }
   return (
     
       <div className={style.cont}>
-      <div className={style.text} >Deposit & Loan 7 days   </div>
+      <div className={style.text} >Recent Transaction Amount   </div>
       <Line
         data={{
-          //all these data will come from props
           labels: ['SAT', 'SUN', 'MON', 'TUE', 'WED', 'Thu','Fri'],
           datasets: [
             {
               label: props.label,
-              data: [10,12,3,4,5,7,11],
+              data: chart,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -41,12 +55,7 @@ const LineChart = (props) => {
               }
 
             },
-            // {
-            //   label: 'Quantity',
-            //   data: [47, 52, 67, 58, 9, 50],
-            //   backgroundColor: 'orange',
-            //   borderColor: 'red',
-            // },
+           
           ],
         }}
         height={400}

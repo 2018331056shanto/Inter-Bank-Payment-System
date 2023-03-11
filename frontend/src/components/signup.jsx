@@ -3,6 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { POST } from '../api/api';
 import { useState } from 'react'
 import Nav from './NavbarLogin/NavbarLogin';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 const  SignUp=(props)=>{
     let [org,setOrg]=useState("abbank")
     let [user,setUser]=useState("")
@@ -20,13 +23,45 @@ const  SignUp=(props)=>{
     }
     // console.log(org+" :hall")
 
-    const onClickHandler=()=>{
+    const onClickHandler=async()=>{
 
-      const res=POST("/register",{user:user,org:org})
+      const res=await POST("/register",{user:user,org:org})
+      console.log(res)
+      if(res.status==200){
+
+        toast.success('🦄 Successfully Registered The User!', {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+
+     }
+     else{
+        toast.error('🦄 Error While Registering!', {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+     }
     }
     return (
-      <form>
+      <>
+        
+
+    
+      <div>
         <Nav/>
+
         <h3>Sign Up</h3>
   
        
@@ -57,7 +92,9 @@ const  SignUp=(props)=>{
         <p className="forgot-password text-right">
           Already registered <a href="/sign-in">sign in?</a>
         </p>
-      </form>
+      </div>
+      <ToastContainer />
+      </>
     )
   }
 

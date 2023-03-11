@@ -1,23 +1,28 @@
 import React, { useState } from 'react'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter,Router, Routes, Route, Link } from 'react-router-dom'
 import Login from './components/login'
 import SignUp from './components/signup'
 import Home from './components/Home/Home'
 import History from './components/History/History'
 import Txhistory from './components/TxHistory/Txhistory'
 import Txrequest from './components/Txrequest/Txrequest'
+import UserProvider from './context/Context'
+import Profile from './components/profile/Profile'
 function App() {
 
   let [sign,setSign]=useState({})
   const signIn=(e)=>{
-    console.log(e.org)
+    console.log(e.token)
     setSign(e)
   }
   return (
 
-    <Router>
+    <>
+    <BrowserRouter>
+      <UserProvider>
+ 
       <div className="App">
        
             <Routes>
@@ -36,7 +41,7 @@ function App() {
               
         <div className="auth-wrapper">
         <div className="auth-inner">
-              <Login />
+        <Login signin={signIn} />
               
               </div>
               </div>
@@ -52,20 +57,24 @@ function App() {
               </div>
               </div>
               } />
-              <Route exact path='/api/home' element={sign.token!=null?<Home sign={sign.org}/>:<div className="auth-wrapper">
+              <Route exact path='/api/bank/home' element={sign.token!=null?<Home sign={{token:sign.token,org:sign.org}}/>:<div className="auth-wrapper">
         <div className="auth-inner">
               <Login />
               
               </div>
               </div>}/>
-              <Route exact path='/api/txhistory' element={<History/>}/>
-              <Route exact path='/api/mkreq' element={<Txrequest/>}/>
-              <Route exact path='/api/txhistory/:id' element={<Txhistory/>}/>
+              <Route exact path='/api/bank/txhistory' element={<History sign={{token:sign.token,org:sign.org}}/>}/>
+              <Route exact path='/api/bank/mktxreq' element={<Txrequest sign={{token:sign.token,org:sign.org}}/>}/>
+              <Route exact path='/api/bank/txhistory/:id' element={<Txhistory sign={{token:sign.token,org:sign.org}}/>}/>
+              <Route exact path='/api/bank/profile' element={<Profile sign={{token:sign.token,org:sign.org}}/>}/>
 
             </Routes>
         
       </div>
-    </Router>
+ 
+    </UserProvider>
+      </BrowserRouter>
+    </>
   )
 }
 export default App
