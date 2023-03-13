@@ -26,7 +26,7 @@ const LineChart = (props) => {
       <div className={style.text} >Recent Transaction Amount   </div>
       <Line
         data={{
-          labels: ['SAT', 'SUN', 'MON', 'TUE', 'WED', 'Thu','Fri'],
+          labels: ['', '', '', '', '', '',''],
           datasets: [
             {
               label: props.label,

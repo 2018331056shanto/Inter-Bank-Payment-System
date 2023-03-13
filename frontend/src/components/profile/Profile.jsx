@@ -25,28 +25,9 @@ const Profile=()=>{
     const [incomingHistory,setIncomiingHistory]=useState([])
     const [deletedTxid,setDeletedTxid]=useState([])
     const [onlyTxID,setOnlyTxID]=useState([])
-    // const [transHistory,setTranshistory]=useState([])
-    // const getDeletedTxID=async()=>{
-
-    //     const result=await GET('/api/bank/gettxid')
-    //     console.log(result)
-    //     let txIDArray=[]
-    //     // console.log("hello hunny bunny")
-
-    //     for(let i=0;i<result.data.length;i++)
-    //     {
-    //         // console.log("hhdsldhs")
-    //         let temp1=result.data[i].txID
-    //         txIDArray.push(temp1)
-    //     }
-    //     console.log(txIDArray)
-    //     setOnlyTxID(txIDArray)
-    //     setDeletedTxid(result.data)
-       
-    // }
+    
     const acceptHandler=async (e)=>{
 
-        // console.log(e.target.parentNode.parentNode.parentNode.cells[0].textContent.toLowerCase())
         const data={
             from:e.target.parentNode.parentNode.parentNode.cells[0].textContent.toLowerCase(),
             amount:e.target.parentNode.parentNode.parentNode.cells[1].textContent,
@@ -66,7 +47,6 @@ const Profile=()=>{
             progress: undefined,
             theme: "light",
             });
-        // console.log("hello fuck")
     }
     const rejectHandler=async (e)=>{
         const data={
@@ -74,7 +54,6 @@ const Profile=()=>{
         }
         
         const res= await POST("/bank/rejecttx",data)
-        // console.log(res)
 
         toast.success('🦄 Incoming Transaction has been Rejected!', {
             position: "top-right",
@@ -97,7 +76,6 @@ const Profile=()=>{
 
         for(let i=0;i<result1.data.length;i++)
         {
-            // console.log("hhdsldhs")
             let temp1=result1.data[i].txID
             txIDArray.push(temp1)
         }
@@ -109,13 +87,13 @@ const Profile=()=>{
         console.log('hellohunne')
         if(transactResult.data!==""){
  
-            // console.log("+++++++++++++++++++++++++++++")
             let history=transactResult.data.map(el=>{
              const temp=JSON.parse(el.result)
              const arr=Object.values(temp)
              return arr
         })
  
+
             let transHistory=[]
  
             history.map(el=>{
@@ -137,10 +115,7 @@ const Profile=()=>{
         
         
         console.log(transHistory)
-        // await others()
-    // }
-
-    // const others=async()=>{
+    
 
         let map=new Map()
 
@@ -249,26 +224,7 @@ const Profile=()=>{
 
         
     }
-       
-    //    for(let [key,value] of map1){
-    //     let obj={}
-    //     obj["from"]=value.record.from.toUpperCase()
-    //     obj["amount"]=value.record.amount
-    //     obj["txid"]=value.record.txID
-    //     obj["ref"]=value.record.ref
-    //     obj["status"]= <Stack style={{marginLeft:"18%"}} direction="row" spacing={2}>
-
-    //     <Button onClick={(e)=>acceptHandler(e)} variant="contained" color="success">
-    //       Accept
-    //     </Button>
-    //     <Button onClick={rejectHandler} variant="contained" color="error">
-    //       Reject
-    //     </Button>
-    //   </Stack>
-    //     resp.push(obj)
-    //    }
-    //    setIncomiingHistory(resp)
-    
+         
     
 }
 useEffect(()=>{
@@ -288,6 +244,7 @@ useEffect(()=>{
 
     }
     const xx2=()=>{
+        
         
         setIsShown2(current => !current);
 

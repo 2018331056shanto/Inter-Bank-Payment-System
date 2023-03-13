@@ -69,7 +69,16 @@ const Login=(props)=> {
 
       const funct=()=>{
 
-        navigate("/api/bank/home")
+        // console.log(response.data.message.org)
+        if(response.data.message.org!=="bdbank")
+        {
+          navigate("/api/bank/home")
+
+        }
+        else{
+          console.log("hello hahdlsa")
+          navigate("/api/bank/admin/home")
+        }
       }
 
       setTimeout( funct,2000)

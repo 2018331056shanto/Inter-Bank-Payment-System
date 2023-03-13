@@ -10,6 +10,7 @@ import Txhistory from './components/TxHistory/Txhistory'
 import Txrequest from './components/Txrequest/Txrequest'
 import UserProvider from './context/Context'
 import Profile from './components/profile/Profile'
+import Admin from './components/Admin/Admin'
 function App() {
 
   let [sign,setSign]=useState({})
@@ -67,7 +68,7 @@ function App() {
               <Route exact path='/api/bank/mktxreq' element={<Txrequest sign={{token:sign.token,org:sign.org}}/>}/>
               <Route exact path='/api/bank/txhistory/:id' element={<Txhistory sign={{token:sign.token,org:sign.org}}/>}/>
               <Route exact path='/api/bank/profile' element={<Profile sign={{token:sign.token,org:sign.org}}/>}/>
-
+              <Route exect path="/api/bank/admin/home" element={<Admin sign={{token:sign.token,org:sign.org}}/>}/>
             </Routes>
         
       </div>

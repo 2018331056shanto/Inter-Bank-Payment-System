@@ -27,18 +27,21 @@ const Navbar=(props)=>{
            </div>
            <div className={style.div2}>
 
-           <Link style={{textDecoration:"none"}} to='/api/bank/home'> <span className={style.sp3}>Dashboard</span></Link>
-           <Link style={{textDecoration:"none"}} to='/api/bank/txhistory'> <span className={style.sp3}>Tx History</span></Link>
+           {loginUser!=="bdbank"?<Link style={{textDecoration:"none"}} to='/api/bank/home'> <span className={style.sp3}>Dashboard</span></Link>:null}
+           {loginUser!=="bdbank"?<Link style={{textDecoration:"none"}} to='/api/bank/txhistory'> <span className={style.sp3}>Tx History</span></Link>: null}
+
             {bank=="bdbank"?<span></span>:<Link style={{textDecoration:"none"}} to='/api/bank/mktxreq'><span className={style.sp3}>Make Tx Request</span></Link>}
            </div>
            <div className={style.div3}>
+            {loginUser!=="bdbank"? 
            <Link style={{textDecoration:"none"}} className={style.sp2} to='/api/bank/profile'>
 
             <span >
 
   
                 <NotificationBadge/></span>
-                </Link>
+                </Link>:<span></span>
+}
             <span className={style.sp1} onClick={dorpHandler}>{drop==true?<Dropdown/>:null}
             <img src={img1} />
             </span>

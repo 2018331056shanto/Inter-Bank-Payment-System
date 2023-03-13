@@ -207,8 +207,8 @@ const Home=(props)=>{
       console.log(transHistory)
         setpending(map.size)
         // setIncomiing(incomingReq)
-        setPending1(pendingCnt)
-        setIncoming1(incoming)
+        setPending1(map.size)
+        setIncoming1(map1.size)
         setMap(xx)
         setChartData(chart)
         setNotificationcnt(cnt)
@@ -240,7 +240,7 @@ const Home=(props)=>{
         <div className={style.con}>
 
             <div className={style.div1}>
-              <Navbar title={props.sign.org}/> 
+              <Navbar  title={props.sign.org}/> 
 
             </div>
             <div className={style.info}>

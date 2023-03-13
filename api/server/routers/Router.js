@@ -8,6 +8,8 @@ const transactionHistory=require('../services/TransactiionHistory')
 const transactionHistoryByChannel=require('../services/TransactionHistoryByChannel')
 const GetDeletedData = require("../services/GetDeletedData")
 const db=require('../utils/CreateConnection')
+const { getDataForAdmin } = require("../services/GetDataForAdmin")
+const {getBanksAccount}=require('../services/GetBankAccountInfo')
 router.get("/bank/account",async(req,res)=>{
 
    const results=await selfAccount.selfAccount()
@@ -53,6 +55,21 @@ router.get("/bank/gettxid",async(req,res)=>{
     })
 })
 
+router.get('/bank/admin/getdata',async(req,res)=>{
+
+    // console.log("fuck you")
+    const result=await getDataForAdmin()
+    // console.log(result)
+    res.send(result)
+})
+router.get('/bank/getstatus',async(req,res)=>{
+
+    // console.log("fuck you")
+    const result=await getBanksAccount()
+    console.log("hello")
+    // console.log(result)
+    res.send(result)
+})
 // router.post("/bank/accepttx",(req,res)=>{
 
 //     console.log("i know what to do")
