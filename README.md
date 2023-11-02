@@ -100,7 +100,7 @@ cd ..
 
 4. create a database in Mysql:
 ```js
-   create databse ipbs
+   create database ipbs
  
 ```
 5. Now you need to install the server side dependencies by running the following commands :
