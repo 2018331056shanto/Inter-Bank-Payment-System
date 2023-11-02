@@ -6,7 +6,7 @@
 - [Project Structure](#project-structure)
 - [Features](#features)
 - [Project Overview](#project-overview)
-- [How to run project)(#how-to-run-project)
+- [How to run project](#how-to-run-project)
 
 ---
 
