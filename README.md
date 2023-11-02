@@ -1,12 +1,12 @@
 # Inter-Bank-Payment-System
 ---
 ### Table of Content
-- [Introduction](https://github.com/2018331056shanto/Inter-Bank-Payment-System#introduction)
-- [Motivation](https://github.com/2018331056shanto/Inter-Bank-Payment-System#motivation)
-- [Project Structure](https://github.com/2018331056shanto/Inter-Bank-Payment-System#project-structure)
-- [Features](https://github.com/2018331056shanto/Inter-Bank-Payment-System#features)
-- [Project Overview](https://github.com/2018331056shanto/Inter-Bank-Payment-System#project-overview)
-- [How to run project)(https://github.com/2018331056shanto/Inter-Bank-Payment-System#how-to-run-project)
+- [Introduction](#introduction)
+- [Motivation](#motivation)
+- [Project Structure](#project-structure)
+- [Features](#features)
+- [Project Overview](#project-overview)
+- [How to run project)(#how-to-run-project)
 
 ---
 
