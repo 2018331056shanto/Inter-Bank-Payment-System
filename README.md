@@ -6,6 +6,7 @@
 - [Project Structure](https://github.com/2018331056shanto/Inter-Bank-Payment-System#project-structure)
 - [Features](https://github.com/2018331056shanto/Inter-Bank-Payment-System#features)
 - [Project Overview](https://github.com/2018331056shanto/Inter-Bank-Payment-System#project-overview)
+- [How to run project)(https://github.com/2018331056shanto/Inter-Bank-Payment-System#how-to-run-project)
 
 ---
 
@@ -70,11 +71,43 @@ Inter-Bank-Payment-System
 ---
 ## Project Overview
 
-<img src="/sample-image/Screenshot from 2023-11-02 23-47-09.png">
+<img src="api/sample-image/Screenshot from 2023-11-02 23-47-09.png">
 <img src="api/sample-image/Screenshot from 2023-11-02 23-46-51.png">
 <img src="api/sample-image/Screenshot from 2023-11-02 23-59-55.png">
 <img src="api/sample-image/Screenshot from 2023-11-03 00-00-48.png">
 <img src="api/sample-image/Screenshot from 2023-11-03 00-01-17.png">
 <img src="api/sample-image/Screenshot from 2023-11-03 00-01-54.png">
 <img src="api/sample-image/Screenshot from 2023-11-03 00-03-00.png">
-<img src="">
+
+---
+
+## How to run project
+
+1. Clone this repository into your local machine.
+2. Open a terminal by pressing `Crtl+Alt+T` and install the client side dependencies by running the following commands
+
+```bash
+cd frontend
+npm install
+npm start
+
+```
+3. Now up the **Hyperledger Fabric Network** by running the following command:
+```bash
+cd ..
+./generate.sh
+```
+
+4. create a database in Mysql:
+```js
+   create databse ipbs
+ 
+```
+5. Now you need to install the server side dependencies by running the following commands :
+```bash
+cd ../api
+npm install
+nodemon app.js
+```
+
+If everything goes correctly, your client side and server side both should be up and running and you'll be able to sign up and continue using the application by yourself.
