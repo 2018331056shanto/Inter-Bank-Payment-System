@@ -6,6 +6,7 @@
 - [Project Structure](#project-structure)
 - [Features](#features)
 - [Project Overview](#project-overview)
+- [Technologies Used](#technologies-used)
 - [How to run project](#how-to-run-project)
 
 ---
@@ -80,6 +81,20 @@ Inter-Bank-Payment-System
 <img src="api/sample-image/Screenshot from 2023-11-03 00-03-00.png">
 
 ---
+
+## Technologies Used
+
+```js
+- Hyperledger Fabric
+- Go
+- CouchDB
+- Docker
+- React Js
+- Node Js
+- Express Js
+- Shell
+
+```
 
 ## How to run project
 
